@@ -3,14 +3,6 @@ edition = "2021"
 license = "MIT"
 name = "getting-started"
 
-[[bin]]
-name = "routeguide-server"
-path = "src/server/server.rs"
-
-[[bin]]
-name = "routeguide-client"
-path = "src/client/client.rs"
-
 [features]
 routeguide = ["dep:async-stream", "dep:tokio-stream", "dep:rand", "dep:serde", "dep:serde_json"]
 full = ["routeguide"]
