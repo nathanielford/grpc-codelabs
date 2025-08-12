@@ -21,19 +21,6 @@ pub use grpc_pb::{
     Point, Feature,
 };
 
-#[derive(Debug, Deserialize)]
-struct JsonFeature {
-    location: Location,
-    name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct Location {
-    latitude: i32,
-    longitude: i32,
-}
-
-
 #[derive(Debug)]
 pub struct RouteGuideService {
     features: Arc<Vec<Feature>>,
@@ -65,6 +52,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let svc = RouteGuideServer::new(route_guide);
     Server::builder().add_service(svc).serve(addr).await?;
     Ok(())
+}
+
+#[derive(Debug, Deserialize)]
+struct JsonFeature {
+    location: Location,
+    name: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct Location {
+    latitude: i32,
+    longitude: i32,
 }
 
 #[allow(dead_code)]

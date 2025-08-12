@@ -50,6 +50,18 @@ async fn main() {
 	///////////////////////////////////////////////////////////////////////////
 }
 
+// #[derive(Debug, Deserialize)]
+// struct JsonFeature {
+//     location: Location,
+//     name: String,
+// }
+
+// #[derive(Debug, Deserialize)]
+// struct Location {
+//     latitude: i32,
+//     longitude: i32,
+// }
+
 // #[allow(dead_code)]
 // pub fn load() -> Vec<Feature> {
 //     let data_dir = std::path::PathBuf::from_iter([
