@@ -1,53 +1,6 @@
-# Getting Started with gRPC-Rust
+# Generate Code from Proto Files
 
-Get hands-on with gRPC for Rust in this interactive codelab! <!-- TODO(arvindbr8): Insert link once codelab is published. -->
-
-Perfect for Rust developers new to gRPC, those seeking a refresher, or anyone
-building distributed systems. No prior gRPC experience needed!
-
-## How to use this directory
-
-- [start_here](https://github.com/cjqzhao/grpc-codelabs/tree/rustcodelab/codelabs/grpc-rust-getting-started/start_here) directory serves as a starting point for the
-codelab.
-- [completed](https://github.com/cjqzhao/grpc-codelabs/tree/rustcodelab/codelabs/grpc-rust-getting-started/completed) directory showcases the finished code, giving you a
-peak of how the final implementation should look like.
-
-## Before you begin
-
-### What you’ll learn
-
-* Get hands-on with gRPC for Rust in this interactive codelab\! Perfect for Rust
-  developers new to gRPC, those seeking a refresher, or anyone building
-  distributed systems. No prior gRPC experience needed\!
-* Build a complete gRPC service from scratch, learning:
-  * Protocol Buffers (protobuf): Define service contracts & data.
-  * gRPC Code Generation: Auto-generate Rust code.
-  * Client/Server Communication: Implement seamless interactions.
-  * Testing & Debugging: Ensure reliability & correctness.
-* You'll gain:
-  * A working gRPC service in Rust.
-  * Hands-on experience with Protocol Buffers and code generation.
-  * Skills to design, build, & test gRPC clients and servers.
-  * A strong foundation in gRPC for real-world projects.
-
-### What you’ll need
-
-* A computer with internet connection
-
-### What you'll build
-
-Our example is a simple route mapping application that lets clients get
-information about features on their route, create a summary of their route, and
-exchange route information such as traffic updates with the server and other
-clients.
-
-With gRPC we can define our service once in a `.proto` file and generate clients
-and servers in any of gRPC’s supported languages, which in turn can be run in
-environments ranging from servers inside a large data center to your own tablet
-— all the complexity of communication between different languages and
-environments is handled for you by gRPC. We also get all the advantages of
-working with protocol buffers, including efficient serialization, a simple IDL,
-and easy interface updating.
+This is a tutorial for generating code from Proto files using gRPC-Rust. This tutorial will utilize the RouteGuide example.
 
 ### Prerequisites
 
@@ -74,8 +27,6 @@ $ PLUGIN_PATH="$(pwd)/bazel-bin/src/protoc-gen-rust-grpc"
 ```sh
 export PATH="$(pwd)/bazel-bin/src/:$PATH"
 ```
-
-* Use [this as a starting point](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fcjqzhao%2Fgrpc-codelabs%2Ftree%2Frustcodelab%2Fcodelabs%2Fgrpc-rust-getting-started%2Fstart_here) for this codelab.
 
 ## Defining protobuf messages and services
 
@@ -195,7 +146,6 @@ protobuf = { version = "4.31.1-release"}
 
 [build-dependencies]
 tonic-protobuf-build = {git = "https://github.com/hyperium/tonic.git", branch = "master", package = "tonic-protobuf-build" }
-tonic-prost-build = {git = "https://github.com/hyperium/tonic.git", branch = "master", package = "tonic-prost-build" }
 ```
 
 ### Compiling and Building Proto  
@@ -204,15 +154,13 @@ Create a `build.rs` file at the root of your crate. A build.rs script is a Rust 
 In this case, we will be putting the command to compile and build the `.proto` file in build.rs. We will use gRPC's tonic_protobuf_build crate to generate code from the `.proto` file.
 ```rust
 fn main() {
-    let proto = "src/routeguide/routeguide.proto";
-    tonic_prost_build::compile_protos(proto).unwrap();
     tonic_protobuf_build::CodeGen::new()
-        .include("src/routeguide")
-        .inputs(["routeguide.proto"])
-        .compile()
-        .unwrap();
+    .include("src/routeguide")
+    .inputs(["routeguide.proto"])
+    .output_dir("generated")
+    .compile_only()
+    .unwrap();
 }
-
 ```
 Now, run 
 ```shell
@@ -228,30 +176,8 @@ That's it. The generated code contains:
 If your are curious as to where the generated files are, keep reading. The mystery will be revealed
 soon! We can now move on to the fun part.
 
-## Creating the server
+## Bringing Generated Code into Scope
 
-First let’s look at how we create a `RouteGuide` server. There are two parts to
-making our `RouteGuide` service do its job:
-* Implementing the service trait generated from our service definition.
-* Running a gRPC server to listen for requests from clients.
-
-> [!TIP]
->  For the complete server implementation, see [server.go](completed/server/server.go)
-
-Let’s implement RouteGuide in `server/server.rs`. `server.rs` has code that is commented out in order to generate code from the proto file. Please uncomment the code starting at this step.
-
-### Implementing RouteGuide
-
-We can start by defining a struct to represent our service, we can do this on `main.rs` for now:
-
-```rust
-#[derive(Debug)]
-pub struct RouteGuideService {
-    features: Arc<Vec<Feature>>,
-}
-```
-
-Next, we need to implement the `route_guide_server::RouteGuide` trait that is generated in our build step.
 The generated code is placed inside our target directory, in a location defined by the `OUT_DIR`
 environment variable that is set by cargo. For our example, this means you can find the generated
 code in a path similar to `target/debug/build/routeguide/out/routeguide.rs`.
@@ -262,9 +188,6 @@ We can use gRPC's `include_proto` macro to bring the generated code into scope:
 pub mod routeguide {
     tonic::include_proto!("routeguide");
 }
-
-use routeguide::route_guide_server::{RouteGuide, RouteGuideServer};
-use routeguide::{Feature, Point};
 ```
 
 **Note**: The token passed to the `include_proto` macro (in our case "routeguide") is the name of
@@ -272,188 +195,3 @@ the package declared in our `.proto` file, not a filename, e.g "routeguide.rs".
 
 With this in place, we can stub out our service implementation:
 
-#### Unary RPC
-
-The `RouteGuideService` implements all our service methods. Let’s look at
-`get_feature` which just gets a `Point` from the client and returns the
-corresponding feature information from its database in a `Feature`.
-
-```rust
-#[tonic::async_trait]
-impl RouteGuide for RouteGuideService {
-    async fn get_feature(&self, request: Request<Point>) -> Result<Response<Feature>, Status> {
-        println!("GetFeature = {:?}", request);
-        for feature in &self.features[..] {
-            if feature.location.as_ref() == Some(request.get_ref()) {
-                return Ok(Response::new(feature.clone()));
-            }
-        }
-        Ok(Response::new(Feature::default()))
-    }
-}
-```
-
-The method is passed the client’s `Point`
-protocol buffer request. It returns a `Feature` protocol buffer object with the
-response information. In the method we populate the `Feature`
-with the appropriate information, and then `return` it.
-
-## Starting the server
-
-Once we’ve implemented all our methods, we also need to start up a gRPC server
-so that clients can actually use our service. The following snippet shows how we
-do this for our `RouteGuide` service:
-
-The features that RouteGuideService will instianted with will be from `route_guide_db.json` and will need a helper function from `data.rs`. Uncomment all the code in `data.rs`. Then, fill in main().
-
-```rust
-mod data;
-use tonic::transport::Server;
-```
-```rust
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:10000".parse().unwrap();
-    println!("RouteGuideServer listening on: {addr}");
-    let route_guide = RouteGuideService {
-        features: Arc::new(data::load()),
-    };
-    let svc = RouteGuideServer::new(route_guide);
-    Server::builder().add_service(svc).serve(addr).await?;
-    Ok(())
-}
-```
-
-To build and start a server, we:
-
-1. Specify the port we want to use to listen for client requests 
-2. Create a `RouteGuideService` with features loaded in
-3. Create an instance of the gRPC server using `RouteGuideServer::new()` using the service we created.
-4. Register our service implementation with the gRPC server.
-5. Call `serve()` on the server with our port details to do a blocking wait
-   until the process is killed.
-
-## Creating the client
-
-In this section, we’ll look at creating a Rust client for our RouteGuide service. You can see our complete example client code in examples/src/routeguide/client.rs.
-
-Like in the server case, we'll start by bringing the generated code into scope:
-
-```rust
-use tonic::Request;
-use tonic::transport::{Channel, Endpoint}; 
-
-pub mod route_guide_gen {
-    grpc::include_proto!("", "routeguide");
-}
-
-use route_guide_gen::{
-    route_guide_client::RouteGuideClient,
-    Point,
-};
-```
-
-> [!TIP]
->  For the complete server implementation, see [client.go](completed/client/client.go)
-
-### Creating a stub
-
-To call service methods, we first need to create a gRPC *channel* to communicate
-with the server. We create this by first creating an endpoint, connecting to that endpoint, and passing the channel made when connected to
-`RouteGuideClient::new` as follows:
-
-> [!NOTE]
->  serverAddr can be configured by passing in `addr` flag. Defaults to `localhost:50051`
-
-```rust
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    //Create endpoint to connect to
-    let endpoint = Endpoint::new("http://[::1]:10000")?; 
-    let channel = endpoint.connect().await?;             
-
-    // Create a new client
-    let mut client = RouteGuideClient::new(channel); 
-}
-```
-
-### Calling service methods
-
-Now let’s look at how we call our service methods. Note that in gRPC-Rust, RPCs
-operate in a blocking/synchronous mode, which means that the RPC call waits for
-the server to respond, and will either return a response or an error.
-
-#### Simple RPC
-
-Calling the simple RPC `GetFeature` is nearly as straightforward as calling a local method.
-
-```rust
-println!("*** SIMPLE RPC ***");
-let point = proto!(Point{
-    latitude: 409_146_138,
-    longitude: -746_188_906
-});
-let response = client
-    .get_feature(Request::new(point))
-    .await?.into_inner();
-Ok(())
-```
-
-As you can see, we call the method on the stub we got earlier. In our method
-parameters we create and populate a request protocol buffer object (in our case
-`Point`). If the call
-doesn’t return an error, then we can read the response information from the
-server from the first return value.
-
-```rust
-println!("Response = Name = \"{}\", Latitude = {}, Longitude = {}",
-    response.name(),
-    response.location().latitude(),
-    response.location().longitude());
-```
-
-## Try it out
-
-First, to run our Client and Server, let's add them as binary targets to our crate. We need to edit our Cargo.toml accordingly:
-
-```toml
-[[bin]]
-name = "routeguide-server"
-path = "src/server/server.rs"
-
-[[bin]]
-name = "routeguide-client"
-path = "src/client/client.rs"
-```
-
-Then, excute the following commands from the working directory:
-
-1. Run the server:
-
-```sh
-cd server
-cargo run --bin routeguide-server 
-```
-
-2. Run the client from another terminal:
-
-```sh
-cd client
-cargo run --bin routeguide-client
-```
-
-You’ll see output like this:
-
-```
-*** SIMPLE RPC ***
-
-FEATURE: Name = "Berkshire Valley Management Area Trail, Jefferson, NJ, USA", Lat = 409146138, Lon = -746188906
-```
-> [!NOTE]
-> We’ve omitted timestamps from the client and server trace output shown in this page
-
-## What’s next
-
-* Learn how gRPC works in [Introduction to gRPC](https://grpc.io/docs/what-is-grpc/introduction/) and [Core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/).
-* Work through the [Basics tutorial](https://grpc.io/docs/languages/go/basics/).
-* Explore the [API reference](https://grpc.io/docs/languages/go/api).
