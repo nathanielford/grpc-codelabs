@@ -40,8 +40,6 @@ hyper-rustls = { version = "0.27.0", features = ["http2", "ring", "tls12"], opti
 tower-http = { version = "0.6", optional = true }
 protobuf = { version = "4.31.1-release"}
 
-
-
 [build-dependencies]
 protobuf-codegen = { version = "4.31.1-release"}
 

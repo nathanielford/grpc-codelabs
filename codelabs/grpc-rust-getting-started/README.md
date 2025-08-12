@@ -155,10 +155,10 @@ In this case, we will be putting the command to compile and build the `.proto` f
 ```rust
 fn main() {
     tonic_protobuf_build::CodeGen::new()
-    .include("src/routeguide")
+    .include("proto")
     .inputs(["routeguide.proto"])
     .output_dir("generated")
-    .compile_only()
+    .compile()
     .unwrap();
 }
 ```

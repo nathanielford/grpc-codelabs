@@ -6,4 +6,3 @@ fn main() {
         .compile_only()
         .unwrap();
 }
-
