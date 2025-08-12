@@ -1,5 +1,4 @@
 use tonic::Request;
-// use grpc channel
 use tonic::transport::{Endpoint}; 
 use protobuf::proto;
 

@@ -3,7 +3,6 @@
 // use protobuf::proto;
 
 // mod grpc_pb {
-//     // Include message code.
 //     include!(concat!(
 //         env!("CARGO_MANIFEST_DIR"),
 //         "/generated/generated.rs"
