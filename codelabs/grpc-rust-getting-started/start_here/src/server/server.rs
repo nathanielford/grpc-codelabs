@@ -39,7 +39,7 @@
 
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() {
     ///////////////////////////////////////////////////////////////////////////
 	// Codelab Hint: Logic for starting up a gRPC Server will be added here.
 	//
