@@ -1,11 +1,38 @@
 use std::sync::Arc;
 use tonic::transport::Server;
-// this part is fine
 use tonic::{Request, Response, Status};
+use serde::Deserialize;
+use std::fs::File;
 use protobuf::proto;
 
-mod data;
-use data::{Feature, Point, RouteGuide, RouteGuideServer};
+mod grpc_pb {
+    include!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/generated/generated.rs"
+    ));
+    include!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/generated/routeguide_grpc.pb.rs"
+    ));
+}
+
+pub use grpc_pb::{
+    route_guide_server::{RouteGuideServer, RouteGuide},
+    Point, Feature,
+};
+
+#[derive(Debug, Deserialize)]
+struct JsonFeature {
+    location: Location,
+    name: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct Location {
+    latitude: i32,
+    longitude: i32,
+}
+
 
 #[derive(Debug)]
 pub struct RouteGuideService {
@@ -17,7 +44,7 @@ impl RouteGuide for RouteGuideService {
     async fn get_feature(&self, request: Request<Point>) -> Result<Response<Feature>, Status> {
         println!("GetFeature = {:?}", request);
         let requested_point = request.get_ref();
-        for feature in &self.features[..] {
+        for feature in self.features.iter() {
             if feature.location().latitude() == requested_point.latitude() {
                 if feature.location().longitude() == requested_point.longitude(){
                     return Ok(Response::new(feature.clone()))
@@ -33,11 +60,31 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:10000".parse().unwrap();
     println!("RouteGuideServer listening on: {addr}");
     let route_guide = RouteGuideService {
-        features: Arc::new(data::load()),
+        features: Arc::new(load()),
     };
     let svc = RouteGuideServer::new(route_guide);
     Server::builder().add_service(svc).serve(addr).await?;
     Ok(())
 }
 
-
+#[allow(dead_code)]
+pub fn load() -> Vec<Feature> {
+    let data_dir = std::path::PathBuf::from_iter([
+        std::env!("CARGO_MANIFEST_DIR"),
+        "src",                           
+        "data"                           
+    ]);
+    let file = File::open(data_dir.join("route_guide_db.json")).expect("failed to open data file");
+    let decoded: Vec<JsonFeature> =
+        serde_json::from_reader(&file).expect("failed to deserialize features");
+    decoded
+        .into_iter()
+        .map(|feature| proto!(Feature {
+            name: feature.name,
+            location: proto!(Point {
+                longitude: feature.location.longitude,
+                latitude: feature.location.latitude,
+            }),
+        }))
+        .collect()
+}

@@ -8,6 +8,7 @@ mod grpc_pb {
         env!("CARGO_MANIFEST_DIR"),
         "/generated/generated.rs"
     ));
+    // Include service code.
     include!(concat!(
         env!("CARGO_MANIFEST_DIR"),
         "/generated/routeguide_grpc.pb.rs"
