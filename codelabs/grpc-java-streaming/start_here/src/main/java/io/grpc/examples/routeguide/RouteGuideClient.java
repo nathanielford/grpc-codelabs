@@ -249,6 +249,14 @@ public class RouteGuideClient {
       target = args[0];
     }
 
+    List<Feature> features;
+    try {
+      features = RouteGuideUtil.parseFeatures(RouteGuideUtil.getDefaultFeaturesFile());
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      return;
+    }    
+
         /***************************************************************
          * Codelab Hint: create a channel using the target defined above
          ***************************************************************/
