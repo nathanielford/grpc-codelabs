@@ -93,9 +93,7 @@ public class RouteGuideServer {
    */
   private void blockUntilShutdown() throws InterruptedException {
     if (server != null) {
-  /****************************************************************
-   * Codelab Hint: wait for server termination
-   ****************************************************************/
+      server.awaitTermination();
     }
   }
 
