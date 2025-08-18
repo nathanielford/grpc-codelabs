@@ -12,9 +12,6 @@ use protobuf::proto;
 // Codelab Hint: Bring the generated code into scope.
 // /////////////////////////////////////////////////////////////////////////
 
-use grpc_pb::route_guide_client::RouteGuideClient;
-use grpc_pb::{Point, Rectangle, RouteNote};
-
 async fn print_features(client: &mut RouteGuideClient<Channel>) -> Result<(), Box<dyn Error>> {
     // --- Add logic for calling ListFeatures method on the client here. ---
 	//
@@ -67,7 +64,7 @@ fn random_point(rng: &mut ThreadRng) -> Point {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ///////////////////////////////////////////////////////////////////////////
 	// Codelab Hint: Logic for your gRPC Client will be added here.
 	//

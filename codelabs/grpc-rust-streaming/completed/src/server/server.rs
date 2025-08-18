@@ -23,22 +23,22 @@ mod grpc_pb {
     ));
 }
 
-#[derive(Debug, Deserialize)]
-struct JsonFeature {
-    location: Location,
-    name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct Location {
-    latitude: i32,
-    longitude: i32,
-}
-
 pub use grpc_pb::{
     route_guide_server::{RouteGuideServer, RouteGuide},
     Point, Feature, Rectangle, RouteNote, RouteSummary
 };
+
+#[derive(Debug, Deserialize)]
+struct JsonFeature {
+    location: JsonPoint,
+    name: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct JsonPoint {
+    latitude: i32,
+    longitude: i32,
+}
 
 #[derive(Debug)]
 pub struct RouteGuideService {
@@ -143,7 +143,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("RouteGuideServer listening on: {addr}");
 
     let route_guide = RouteGuideService {
-        features: Arc::new(load()),
+        features: load().into(),
     };
 
     let svc = RouteGuideServer::new(route_guide);

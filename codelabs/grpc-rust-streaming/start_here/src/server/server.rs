@@ -28,15 +28,12 @@ struct Location {
     longitude: i32,
 }
 
-pub use grpc_pb::{
-    route_guide_server::{RouteGuideServer, RouteGuide},
-    Point, Feature, Rectangle, RouteNote, RouteSummary
-};
-
+//delete Arc and delete the import of Arc
 #[derive(Debug)]
 pub struct RouteGuideService {
     features: Arc<Vec<Feature>>,
 }
+
 type ListFeaturesStream = Pin<Box<dyn Stream<Item = Result<Feature, Status>> + Send + 'static>>;
 type RouteChatStream = Pin<Box<dyn Stream<Item = Result<RouteNote, Status>> + Send + 'static>>;
 
