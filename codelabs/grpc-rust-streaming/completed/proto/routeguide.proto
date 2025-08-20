@@ -28,16 +28,6 @@ message Point {
   int32 longitude = 2;
 }
 
-// A latitude-longitude rectangle, represented as two diagonally opposite
-// points "lo" and "hi".
-message Rectangle {
-  // One corner of the rectangle.
-  Point lo = 1;
-
-  // The other corner of the rectangle.
-  Point hi = 2;
-}
-
 // A feature names something at a given point.
 //
 // If a feature could not be named, the name is empty.
@@ -47,6 +37,16 @@ message Feature {
 
   // The point where the feature is detected.
   Point location = 2;
+}
+
+// A latitude-longitude rectangle, represented as two diagonally opposite
+// points "lo" and "hi".
+message Rectangle {
+  // One corner of the rectangle.
+  Point lo = 1;
+
+  // The other corner of the rectangle.
+  Point hi = 2;
 }
 
 // A RouteNote is a message sent while at a given point.
