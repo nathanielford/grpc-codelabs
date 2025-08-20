@@ -30,7 +30,7 @@ hyper-util = { version = "0.1.4", optional = true }
 tokio-rustls = { version = "0.26.1", optional = true, features = ["ring", "tls12"], default-features = false }
 hyper-rustls = { version = "0.27.0", features = ["http2", "ring", "tls12"], optional = true, default-features = false }
 tower-http = { version = "0.6", optional = true }
-protobuf = { version = "4.31.1-release"}
+protobuf = { version = "4.32.0-release"}
 
 [build-dependencies]
-protobuf-codegen = { version = "4.31.1-release"}
+protobuf-codegen = { version = "4.32.0-release"}
