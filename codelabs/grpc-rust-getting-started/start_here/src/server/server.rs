@@ -33,7 +33,7 @@ impl RouteGuide for RouteGuideService {
 
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ///////////////////////////////////////////////////////////////////////////
 	// Codelab Hint: Logic for starting up a gRPC Server will be added here.
 	//
