@@ -1,9 +1,12 @@
 const _: () = ::protobuf::__internal::assert_compatible_gencode_version(
-    "4.31.1-release",
+    "4.32.0-release",
+);
+pub(crate) static mut routeguide__Point_msg_init: ::protobuf::__internal::runtime::MiniTablePtr = ::protobuf::__internal::runtime::MiniTablePtr(
+    ::std::ptr::null_mut(),
 );
 #[allow(non_camel_case_types)]
 pub struct Point {
-    inner: ::protobuf::__internal::runtime::MessageInner,
+    inner: ::protobuf::__internal::runtime::OwnedMessageInner<Point>,
 }
 impl ::protobuf::Message for Point {}
 impl ::std::default::Default for Point {
@@ -14,6 +17,11 @@ impl ::std::default::Default for Point {
 impl ::protobuf::Parse for Point {
     fn parse(serialized: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         Self::parse(serialized)
+    }
+    fn parse_dont_enforce_required(
+        serialized: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        Self::parse_dont_enforce_required(serialized)
     }
 }
 impl ::std::fmt::Debug for Point {
@@ -27,42 +35,9 @@ impl ::std::fmt::Debug for Point {
         write!(f, "{}", string)
     }
 }
-impl ::protobuf::TakeFrom for Point {
-    fn take_from(&mut self, src: impl ::protobuf::AsMut<MutProxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::TakeFrom::take_from(&mut m, src)
-    }
-}
-impl ::protobuf::CopyFrom for Point {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::CopyFrom::copy_from(&mut m, src)
-    }
-}
-impl ::protobuf::MergeFrom for Point {
-    fn merge_from<'src>(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::MergeFrom::merge_from(&mut m, src)
-    }
-}
 impl ::protobuf::Serialize for Point {
     fn serialize(&self) -> ::std::result::Result<Vec<u8>, ::protobuf::SerializeError> {
         ::protobuf::AsView::as_view(self).serialize()
-    }
-}
-impl ::protobuf::Clear for Point {
-    fn clear(&mut self) {
-        let mut m = self.as_mut();
-        ::protobuf::Clear::clear(&mut m)
-    }
-}
-impl ::protobuf::ClearAndParse for Point {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        let mut m = self.as_mut();
-        ::protobuf::ClearAndParse::clear_and_parse(&mut m, data)
     }
 }
 unsafe impl Sync for Point {}
@@ -77,7 +52,7 @@ impl ::protobuf::MutProxied for Point {
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
 pub struct PointView<'msg> {
-    msg: ::protobuf::__internal::runtime::RawMessage,
+    inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, Point>,
     _phantom: ::std::marker::PhantomData<&'msg ()>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for PointView<'msg> {}
@@ -108,10 +83,12 @@ impl ::protobuf::Serialize for PointView<'_> {
 }
 impl ::std::default::Default for PointView<'_> {
     fn default() -> PointView<'static> {
-        PointView::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-        )
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(
+                ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
+            )
+        };
+        PointView::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
@@ -119,49 +96,27 @@ impl<'msg> PointView<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: ::protobuf::__internal::runtime::RawMessage,
+        inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, Point>,
     ) -> Self {
         Self {
-            msg,
+            inner,
             _phantom: ::std::marker::PhantomData,
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.msg
+        self.inner.raw()
     }
     pub fn to_owned(&self) -> Point {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
     pub fn latitude(self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn longitude(self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
         }
     }
 }
@@ -185,13 +140,25 @@ impl<'msg> ::protobuf::IntoView<'msg> for PointView<'msg> {
 }
 impl<'msg> ::protobuf::IntoProxied<Point> for PointView<'msg> {
     fn into_proxied(self, _private: ::protobuf::__internal::Private) -> Point {
-        let dst = Point::new();
+        let mut dst = Point::new();
+        let dst_raw = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_raw_message_mut(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let dst_arena = ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let src_raw = ::protobuf::__internal::runtime::UpbGetMessagePtr::get_raw_message(
+            &self,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
             ::protobuf::__internal::runtime::upb_Message_DeepCopy(
-                dst.inner.msg,
-                self.msg,
+                dst_raw,
+                src_raw,
                 <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                dst.inner.arena.raw(),
+                dst_arena.raw(),
             )
         };
         dst
@@ -203,136 +170,6 @@ impl<'msg> ::protobuf::IntoProxied<Point> for PointMut<'msg> {
             ::protobuf::IntoView::into_view(self),
             _private,
         )
-    }
-}
-unsafe impl ::protobuf::ProxiedInRepeated for Point {
-    fn repeated_new(
-        _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::Repeated<Self> {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        unsafe {
-            ::protobuf::Repeated::from_inner(
-                ::protobuf::__internal::Private,
-                ::protobuf::__internal::runtime::InnerRepeated::from_raw_parts(
-                    ::protobuf::__internal::runtime::upb_Array_New(
-                        arena.raw(),
-                        ::protobuf::__internal::runtime::CType::Message,
-                    ),
-                    arena,
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_free(
-        _private: ::protobuf::__internal::Private,
-        _f: &mut ::protobuf::Repeated<Self>,
-    ) {}
-    fn repeated_len(f: ::protobuf::View<::protobuf::Repeated<Self>>) -> usize {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            )
-        }
-    }
-    unsafe fn repeated_set_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Set(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_get_unchecked(
-        f: ::protobuf::View<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::View<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Get(
-                    f.as_raw(::protobuf::__internal::Private),
-                    i,
-                )
-                .msg_val
-        }
-            .expect("upb_Array* element should not be NULL.");
-        ::protobuf::View::<Self>::new(::protobuf::__internal::Private, msg_ptr)
-    }
-    unsafe fn repeated_get_mut_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::Mut<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_GetMutable(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-            )
-        };
-        unsafe {
-            ::protobuf::Mut::<Self> {
-                inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    msg_ptr,
-                    f.arena(::protobuf::__internal::Private),
-                ),
-            }
-        }
-    }
-    fn repeated_clear(mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Resize(
-                f.as_raw(::protobuf::__internal::Private),
-                0,
-                f.raw_arena(::protobuf::__internal::Private),
-            )
-        };
-    }
-    fn repeated_push(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Append(
-                f.as_raw(::protobuf::__internal::Private),
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        };
-    }
-    fn repeated_copy_from(
-        src: ::protobuf::View<::protobuf::Repeated<Self>>,
-        dest: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::repeated_message_copy_from(
-                src,
-                dest,
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            );
-        }
-    }
-    fn repeated_reserve(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        additional: usize,
-    ) {
-        unsafe {
-            let size = ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            );
-            ::protobuf::__internal::runtime::upb_Array_Reserve(
-                f.as_raw(::protobuf::__internal::Private),
-                size + additional,
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        }
     }
 }
 impl ::protobuf::__internal::runtime::UpbTypeConversions for Point {
@@ -354,7 +191,7 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for Point {
             ::protobuf::__internal::runtime::Arena::from_raw(raw_parent_arena)
         });
         parent_arena
-            .fuse(val.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(val.as_message_mut_inner(::protobuf::__internal::Private).arena());
         ::protobuf::__internal::runtime::upb_MessageValue {
             msg_val: Some(val.raw_msg()),
         }
@@ -362,30 +199,29 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for Point {
     unsafe fn from_message_value<'msg>(
         msg: ::protobuf::__internal::runtime::upb_MessageValue,
     ) -> ::protobuf::View<'msg, Self> {
-        PointView::new(
-            ::protobuf::__internal::Private,
-            unsafe { msg.msg_val }.expect("expected present message value in map"),
-        )
+        let raw = unsafe { msg.msg_val }.expect("expected present message value in map");
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        PointView::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn from_message_mut<'msg>(
-        msg: *mut ::protobuf::__internal::runtime::upb_Message,
+        msg: ::protobuf::__internal::runtime::RawMessage,
         arena: &'msg ::protobuf::__internal::runtime::Arena,
     ) -> PointMut<'msg> {
-        PointMut {
-            inner: unsafe {
-                ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    std::ptr::NonNull::new(msg)
-                        .expect("expected present message value in map"),
-                    arena,
-                )
-            },
-        }
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageMutInner::<
+                'msg,
+                Point,
+            >::wrap_raw(msg, arena)
+        };
+        PointMut::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 pub struct PointMut<'msg> {
-    inner: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+    inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, Point>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for PointMut<'msg> {}
 impl<'msg> ::protobuf::MessageMut<'msg> for PointMut<'msg> {
@@ -407,77 +243,16 @@ impl ::protobuf::Serialize for PointMut<'_> {
         ::protobuf::AsView::as_view(self).serialize()
     }
 }
-impl ::protobuf::Clear for PointMut<'_> {
-    fn clear(&mut self) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_Clear(
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            )
-        }
-    }
-}
-impl ::protobuf::ClearAndParse for PointMut<'_> {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        ::protobuf::Clear::clear(self);
-        let status = unsafe {
-            ::protobuf::__internal::runtime::wire::decode(
-                data,
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                self.arena(),
-            )
-        };
-        match status {
-            Ok(_) => Ok(()),
-            Err(_) => Err(::protobuf::ParseError),
-        }
-    }
-}
-impl ::protobuf::TakeFrom for PointMut<'_> {
-    fn take_from(&mut self, mut src: impl ::protobuf::AsMut<MutProxied = Point>) {
-        let mut src = src.as_mut();
-        ::protobuf::CopyFrom::copy_from(self, ::protobuf::AsView::as_view(&src));
-        ::protobuf::Clear::clear(&mut src);
-    }
-}
-impl ::protobuf::CopyFrom for PointMut<'_> {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Point>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_DeepCopy(self.raw_msg(), src
-                .as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                self.arena().raw())
-            );
-        }
-    }
-}
-impl ::protobuf::MergeFrom for PointMut<'_> {
-    fn merge_from(&mut self, src: impl ::protobuf::AsView<Proxied = Point>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_MergeFrom(self.raw_msg(),
-                src.as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                ::std::ptr::null(), self.arena().raw())
-            );
-        }
-    }
-}
 #[allow(dead_code)]
 impl<'msg> PointMut<'msg> {
     #[doc(hidden)]
-    pub fn from_parent(
+    pub fn from_parent<ParentT: ::protobuf::Message>(
         _private: ::protobuf::__internal::Private,
-        parent: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+        parent: ::protobuf::__internal::runtime::MessageMutInner<'msg, ParentT>,
         msg: ::protobuf::__internal::runtime::RawMessage,
     ) -> Self {
         Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_parent(
+            inner: ::protobuf::__internal::runtime::MessageMutInner::from_parent(
                 parent,
                 msg,
             ),
@@ -486,87 +261,41 @@ impl<'msg> PointMut<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: &'msg mut ::protobuf::__internal::runtime::MessageInner,
+        inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, Point>,
     ) -> Self {
-        Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::new(msg),
-        }
+        Self { inner }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg()
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef<'msg> {
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'msg, Point> {
         self.inner
     }
     pub fn to_owned(&self) -> Point {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
         self.inner.arena()
     }
     pub fn latitude(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_latitude(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
     }
     pub fn longitude(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_longitude(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
     }
 }
 unsafe impl Sync for PointMut<'_> {}
@@ -576,7 +305,9 @@ impl<'msg> ::protobuf::AsView for PointMut<'msg> {
     type Proxied = Point;
     fn as_view(&self) -> ::protobuf::View<'_, Point> {
         PointView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -587,7 +318,9 @@ impl<'msg> ::protobuf::IntoView<'msg> for PointMut<'msg> {
         'msg: 'shorter,
     {
         PointView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -609,103 +342,61 @@ impl<'msg> ::protobuf::IntoMut<'msg> for PointMut<'msg> {
 #[allow(dead_code)]
 impl Point {
     pub fn new() -> Self {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        let raw_msg = unsafe {
-            ::protobuf::__internal::runtime::upb_Message_New(
-                    <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                    arena.raw(),
-                )
-                .unwrap()
-        };
         Self {
-            inner: ::protobuf::__internal::runtime::MessageInner {
-                msg: raw_msg,
-                arena,
-            },
+            inner: ::protobuf::__internal::runtime::OwnedMessageInner::<Self>::new(),
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef {
-        ::protobuf::__internal::runtime::MutatorMessageRef::new(&mut self.inner)
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'_, Point> {
+        ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
-        &self.inner.arena
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
     pub fn parse(data: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         let mut msg = Self::new();
         ::protobuf::ClearAndParse::clear_and_parse(&mut msg, data).map(|_| msg)
     }
+    pub fn parse_dont_enforce_required(
+        data: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        let mut msg = Self::new();
+        ::protobuf::ClearAndParse::clear_and_parse_dont_enforce_required(&mut msg, data)
+            .map(|_| msg)
+    }
     pub fn as_view(&self) -> PointView {
-        PointView::new(::protobuf::__internal::Private, self.inner.msg)
+        PointView::new(
+            ::protobuf::__internal::Private,
+            ::protobuf::__internal::runtime::MessageViewInner::view_of_owned(&self.inner),
+        )
     }
     pub fn as_mut(&mut self) -> PointMut {
-        PointMut::new(::protobuf::__internal::Private, &mut self.inner)
+        let inner = ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(
+            &mut self.inner,
+        );
+        PointMut::new(::protobuf::__internal::Private, inner)
     }
     pub fn latitude(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_latitude(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
     }
     pub fn longitude(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_longitude(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
     }
 }
 impl ::std::ops::Drop for Point {
@@ -729,84 +420,138 @@ impl ::protobuf::AsMut for Point {
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for Point {
-    #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Point_msg_init) }
+        static ONCE_LOCK: ::std::sync::OnceLock<
+            ::protobuf::__internal::runtime::MiniTablePtr,
+        > = ::std::sync::OnceLock::new();
+        ONCE_LOCK
+            .get_or_init(|| unsafe {
+                super::routeguide__Point_msg_init.0 = ::protobuf::__internal::runtime::upb_MiniTable_Build(
+                    "$(P(P".as_ptr(),
+                    5,
+                    ::protobuf::__internal::runtime::THREAD_LOCAL_ARENA
+                        .with(|a| a.raw()),
+                    ::std::ptr::null_mut(),
+                );
+                let submessages = [];
+                let subenums = [];
+                assert!(
+                    ::protobuf::__internal::runtime::upb_MiniTable_Link(super::routeguide__Point_msg_init
+                    .0, submessages.as_ptr() as * const * const
+                    ::protobuf::__internal::runtime::upb_MiniTable, submessages.len(),
+                    subenums.as_ptr(), subenums.len())
+                );
+                ::protobuf::__internal::runtime::MiniTablePtr(
+                    super::routeguide__Point_msg_init.0,
+                )
+            })
+            .0
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for Point {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for PointView<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Point_msg_init) }
+        <Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for PointMut<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Point_msg_init) }
+        <Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
-extern "C" {
-    /// Opaque static extern for this message's MiniTable, generated
-    /// by the upb C MiniTable codegen. The only valid way to
-    /// reference this static is with `std::ptr::addr_of!(..)`.
-    static routeguide__Point_msg_init: ::protobuf::__internal::runtime::upb_MiniTable;
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for Point {
+    type Msg = Point;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Point> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for Point {
+    type Msg = Point;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Point> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for PointMut<'_> {
+    type Msg = Point;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Point> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for PointMut<'_> {
+    type Msg = Point;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Point> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for PointView<'_> {
+    type Msg = Point;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Point> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for PointMut<'_> {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
+    }
 }
 impl ::protobuf::OwnedMessageInterop for Point {}
 impl<'a> ::protobuf::MessageMutInterop<'a> for PointMut<'a> {}
 impl<'a> ::protobuf::MessageViewInterop<'a> for PointView<'a> {
     unsafe fn __unstable_wrap_raw_message(msg: &'a *const ::std::ffi::c_void) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn __unstable_wrap_raw_message_unchecked_lifetime(
         msg: *const ::std::ffi::c_void,
     ) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     fn __unstable_as_raw_message(&self) -> *const ::std::ffi::c_void {
-        self.msg.as_ptr() as *const _
+        self.inner.raw().as_ptr() as *const _
     }
 }
-impl ::protobuf::__internal::MatcherEq for Point {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for PointMut<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for PointView<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_IsEqual(
-                self.msg,
-                o.msg,
-                <Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            )
-        }
-    }
-}
+pub(crate) static mut routeguide__Rectangle_msg_init: ::protobuf::__internal::runtime::MiniTablePtr = ::protobuf::__internal::runtime::MiniTablePtr(
+    ::std::ptr::null_mut(),
+);
 #[allow(non_camel_case_types)]
 pub struct Rectangle {
-    inner: ::protobuf::__internal::runtime::MessageInner,
+    inner: ::protobuf::__internal::runtime::OwnedMessageInner<Rectangle>,
 }
 impl ::protobuf::Message for Rectangle {}
 impl ::std::default::Default for Rectangle {
@@ -817,6 +562,11 @@ impl ::std::default::Default for Rectangle {
 impl ::protobuf::Parse for Rectangle {
     fn parse(serialized: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         Self::parse(serialized)
+    }
+    fn parse_dont_enforce_required(
+        serialized: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        Self::parse_dont_enforce_required(serialized)
     }
 }
 impl ::std::fmt::Debug for Rectangle {
@@ -830,42 +580,9 @@ impl ::std::fmt::Debug for Rectangle {
         write!(f, "{}", string)
     }
 }
-impl ::protobuf::TakeFrom for Rectangle {
-    fn take_from(&mut self, src: impl ::protobuf::AsMut<MutProxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::TakeFrom::take_from(&mut m, src)
-    }
-}
-impl ::protobuf::CopyFrom for Rectangle {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::CopyFrom::copy_from(&mut m, src)
-    }
-}
-impl ::protobuf::MergeFrom for Rectangle {
-    fn merge_from<'src>(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::MergeFrom::merge_from(&mut m, src)
-    }
-}
 impl ::protobuf::Serialize for Rectangle {
     fn serialize(&self) -> ::std::result::Result<Vec<u8>, ::protobuf::SerializeError> {
         ::protobuf::AsView::as_view(self).serialize()
-    }
-}
-impl ::protobuf::Clear for Rectangle {
-    fn clear(&mut self) {
-        let mut m = self.as_mut();
-        ::protobuf::Clear::clear(&mut m)
-    }
-}
-impl ::protobuf::ClearAndParse for Rectangle {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        let mut m = self.as_mut();
-        ::protobuf::ClearAndParse::clear_and_parse(&mut m, data)
     }
 }
 unsafe impl Sync for Rectangle {}
@@ -880,7 +597,7 @@ impl ::protobuf::MutProxied for Rectangle {
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
 pub struct RectangleView<'msg> {
-    msg: ::protobuf::__internal::runtime::RawMessage,
+    inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, Rectangle>,
     _phantom: ::std::marker::PhantomData<&'msg ()>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for RectangleView<'msg> {}
@@ -911,10 +628,12 @@ impl ::protobuf::Serialize for RectangleView<'_> {
 }
 impl ::std::default::Default for RectangleView<'_> {
     fn default() -> RectangleView<'static> {
-        RectangleView::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-        )
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(
+                ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
+            )
+        };
+        RectangleView::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
@@ -922,82 +641,50 @@ impl<'msg> RectangleView<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: ::protobuf::__internal::runtime::RawMessage,
+        inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, Rectangle>,
     ) -> Self {
         Self {
-            msg,
+            inner,
             _phantom: ::std::marker::PhantomData,
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.msg
+        self.inner.raw()
     }
     pub fn to_owned(&self) -> Rectangle {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
     pub fn has_lo(self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(0) }
     }
     pub fn lo_opt(self) -> ::protobuf::Optional<super::PointView<'msg>> {
         ::protobuf::Optional::new(self.lo(), self.has_lo())
     }
     pub fn lo(self) -> super::PointView<'msg> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn has_hi(self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(1) }
     }
     pub fn hi_opt(self) -> ::protobuf::Optional<super::PointView<'msg>> {
         ::protobuf::Optional::new(self.hi(), self.has_hi())
     }
     pub fn hi(self) -> super::PointView<'msg> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
 }
 unsafe impl Sync for RectangleView<'_> {}
@@ -1020,13 +707,25 @@ impl<'msg> ::protobuf::IntoView<'msg> for RectangleView<'msg> {
 }
 impl<'msg> ::protobuf::IntoProxied<Rectangle> for RectangleView<'msg> {
     fn into_proxied(self, _private: ::protobuf::__internal::Private) -> Rectangle {
-        let dst = Rectangle::new();
+        let mut dst = Rectangle::new();
+        let dst_raw = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_raw_message_mut(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let dst_arena = ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let src_raw = ::protobuf::__internal::runtime::UpbGetMessagePtr::get_raw_message(
+            &self,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
             ::protobuf::__internal::runtime::upb_Message_DeepCopy(
-                dst.inner.msg,
-                self.msg,
+                dst_raw,
+                src_raw,
                 <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                dst.inner.arena.raw(),
+                dst_arena.raw(),
             )
         };
         dst
@@ -1038,136 +737,6 @@ impl<'msg> ::protobuf::IntoProxied<Rectangle> for RectangleMut<'msg> {
             ::protobuf::IntoView::into_view(self),
             _private,
         )
-    }
-}
-unsafe impl ::protobuf::ProxiedInRepeated for Rectangle {
-    fn repeated_new(
-        _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::Repeated<Self> {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        unsafe {
-            ::protobuf::Repeated::from_inner(
-                ::protobuf::__internal::Private,
-                ::protobuf::__internal::runtime::InnerRepeated::from_raw_parts(
-                    ::protobuf::__internal::runtime::upb_Array_New(
-                        arena.raw(),
-                        ::protobuf::__internal::runtime::CType::Message,
-                    ),
-                    arena,
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_free(
-        _private: ::protobuf::__internal::Private,
-        _f: &mut ::protobuf::Repeated<Self>,
-    ) {}
-    fn repeated_len(f: ::protobuf::View<::protobuf::Repeated<Self>>) -> usize {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            )
-        }
-    }
-    unsafe fn repeated_set_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Set(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_get_unchecked(
-        f: ::protobuf::View<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::View<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Get(
-                    f.as_raw(::protobuf::__internal::Private),
-                    i,
-                )
-                .msg_val
-        }
-            .expect("upb_Array* element should not be NULL.");
-        ::protobuf::View::<Self>::new(::protobuf::__internal::Private, msg_ptr)
-    }
-    unsafe fn repeated_get_mut_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::Mut<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_GetMutable(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-            )
-        };
-        unsafe {
-            ::protobuf::Mut::<Self> {
-                inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    msg_ptr,
-                    f.arena(::protobuf::__internal::Private),
-                ),
-            }
-        }
-    }
-    fn repeated_clear(mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Resize(
-                f.as_raw(::protobuf::__internal::Private),
-                0,
-                f.raw_arena(::protobuf::__internal::Private),
-            )
-        };
-    }
-    fn repeated_push(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Append(
-                f.as_raw(::protobuf::__internal::Private),
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        };
-    }
-    fn repeated_copy_from(
-        src: ::protobuf::View<::protobuf::Repeated<Self>>,
-        dest: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::repeated_message_copy_from(
-                src,
-                dest,
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            );
-        }
-    }
-    fn repeated_reserve(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        additional: usize,
-    ) {
-        unsafe {
-            let size = ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            );
-            ::protobuf::__internal::runtime::upb_Array_Reserve(
-                f.as_raw(::protobuf::__internal::Private),
-                size + additional,
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        }
     }
 }
 impl ::protobuf::__internal::runtime::UpbTypeConversions for Rectangle {
@@ -1189,7 +758,7 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for Rectangle {
             ::protobuf::__internal::runtime::Arena::from_raw(raw_parent_arena)
         });
         parent_arena
-            .fuse(val.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(val.as_message_mut_inner(::protobuf::__internal::Private).arena());
         ::protobuf::__internal::runtime::upb_MessageValue {
             msg_val: Some(val.raw_msg()),
         }
@@ -1197,30 +766,29 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for Rectangle {
     unsafe fn from_message_value<'msg>(
         msg: ::protobuf::__internal::runtime::upb_MessageValue,
     ) -> ::protobuf::View<'msg, Self> {
-        RectangleView::new(
-            ::protobuf::__internal::Private,
-            unsafe { msg.msg_val }.expect("expected present message value in map"),
-        )
+        let raw = unsafe { msg.msg_val }.expect("expected present message value in map");
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        RectangleView::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn from_message_mut<'msg>(
-        msg: *mut ::protobuf::__internal::runtime::upb_Message,
+        msg: ::protobuf::__internal::runtime::RawMessage,
         arena: &'msg ::protobuf::__internal::runtime::Arena,
     ) -> RectangleMut<'msg> {
-        RectangleMut {
-            inner: unsafe {
-                ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    std::ptr::NonNull::new(msg)
-                        .expect("expected present message value in map"),
-                    arena,
-                )
-            },
-        }
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageMutInner::<
+                'msg,
+                Rectangle,
+            >::wrap_raw(msg, arena)
+        };
+        RectangleMut::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 pub struct RectangleMut<'msg> {
-    inner: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+    inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, Rectangle>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for RectangleMut<'msg> {}
 impl<'msg> ::protobuf::MessageMut<'msg> for RectangleMut<'msg> {
@@ -1242,77 +810,16 @@ impl ::protobuf::Serialize for RectangleMut<'_> {
         ::protobuf::AsView::as_view(self).serialize()
     }
 }
-impl ::protobuf::Clear for RectangleMut<'_> {
-    fn clear(&mut self) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_Clear(
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            )
-        }
-    }
-}
-impl ::protobuf::ClearAndParse for RectangleMut<'_> {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        ::protobuf::Clear::clear(self);
-        let status = unsafe {
-            ::protobuf::__internal::runtime::wire::decode(
-                data,
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                self.arena(),
-            )
-        };
-        match status {
-            Ok(_) => Ok(()),
-            Err(_) => Err(::protobuf::ParseError),
-        }
-    }
-}
-impl ::protobuf::TakeFrom for RectangleMut<'_> {
-    fn take_from(&mut self, mut src: impl ::protobuf::AsMut<MutProxied = Rectangle>) {
-        let mut src = src.as_mut();
-        ::protobuf::CopyFrom::copy_from(self, ::protobuf::AsView::as_view(&src));
-        ::protobuf::Clear::clear(&mut src);
-    }
-}
-impl ::protobuf::CopyFrom for RectangleMut<'_> {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Rectangle>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_DeepCopy(self.raw_msg(), src
-                .as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                self.arena().raw())
-            );
-        }
-    }
-}
-impl ::protobuf::MergeFrom for RectangleMut<'_> {
-    fn merge_from(&mut self, src: impl ::protobuf::AsView<Proxied = Rectangle>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_MergeFrom(self.raw_msg(),
-                src.as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                ::std::ptr::null(), self.arena().raw())
-            );
-        }
-    }
-}
 #[allow(dead_code)]
 impl<'msg> RectangleMut<'msg> {
     #[doc(hidden)]
-    pub fn from_parent(
+    pub fn from_parent<ParentT: ::protobuf::Message>(
         _private: ::protobuf::__internal::Private,
-        parent: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+        parent: ::protobuf::__internal::runtime::MessageMutInner<'msg, ParentT>,
         msg: ::protobuf::__internal::runtime::RawMessage,
     ) -> Self {
         Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_parent(
+            inner: ::protobuf::__internal::runtime::MessageMutInner::from_parent(
                 parent,
                 msg,
             ),
@@ -1321,192 +828,128 @@ impl<'msg> RectangleMut<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: &'msg mut ::protobuf::__internal::runtime::MessageInner,
+        inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, Rectangle>,
     ) -> Self {
-        Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::new(msg),
-        }
+        Self { inner }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg()
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef<'msg> {
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'msg, Rectangle> {
         self.inner
     }
     pub fn to_owned(&self) -> Rectangle {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
         self.inner.arena()
     }
     pub fn has_lo(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(0) }
     }
     pub fn clear_lo(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(0);
         }
     }
     pub fn lo_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.lo(), self.has_lo())
     }
     pub fn lo(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn lo_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(0, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_lo(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(0, child_ptr);
         }
     }
     pub fn has_hi(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(1) }
     }
     pub fn clear_hi(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(1);
         }
     }
     pub fn hi_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.hi(), self.has_hi())
     }
     pub fn hi(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn hi_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(1, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_hi(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(1, child_ptr);
         }
     }
 }
@@ -1517,7 +960,9 @@ impl<'msg> ::protobuf::AsView for RectangleMut<'msg> {
     type Proxied = Rectangle;
     fn as_view(&self) -> ::protobuf::View<'_, Rectangle> {
         RectangleView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -1528,7 +973,9 @@ impl<'msg> ::protobuf::IntoView<'msg> for RectangleMut<'msg> {
         'msg: 'shorter,
     {
         RectangleView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -1550,208 +997,148 @@ impl<'msg> ::protobuf::IntoMut<'msg> for RectangleMut<'msg> {
 #[allow(dead_code)]
 impl Rectangle {
     pub fn new() -> Self {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        let raw_msg = unsafe {
-            ::protobuf::__internal::runtime::upb_Message_New(
-                    <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                    arena.raw(),
-                )
-                .unwrap()
-        };
         Self {
-            inner: ::protobuf::__internal::runtime::MessageInner {
-                msg: raw_msg,
-                arena,
-            },
+            inner: ::protobuf::__internal::runtime::OwnedMessageInner::<Self>::new(),
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef {
-        ::protobuf::__internal::runtime::MutatorMessageRef::new(&mut self.inner)
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'_, Rectangle> {
+        ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
-        &self.inner.arena
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
     pub fn parse(data: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         let mut msg = Self::new();
         ::protobuf::ClearAndParse::clear_and_parse(&mut msg, data).map(|_| msg)
     }
+    pub fn parse_dont_enforce_required(
+        data: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        let mut msg = Self::new();
+        ::protobuf::ClearAndParse::clear_and_parse_dont_enforce_required(&mut msg, data)
+            .map(|_| msg)
+    }
     pub fn as_view(&self) -> RectangleView {
-        RectangleView::new(::protobuf::__internal::Private, self.inner.msg)
+        RectangleView::new(
+            ::protobuf::__internal::Private,
+            ::protobuf::__internal::runtime::MessageViewInner::view_of_owned(&self.inner),
+        )
     }
     pub fn as_mut(&mut self) -> RectangleMut {
-        RectangleMut::new(::protobuf::__internal::Private, &mut self.inner)
+        let inner = ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(
+            &mut self.inner,
+        );
+        RectangleMut::new(::protobuf::__internal::Private, inner)
     }
     pub fn has_lo(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(0) }
     }
     pub fn clear_lo(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(0);
         }
     }
     pub fn lo_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.lo(), self.has_lo())
     }
     pub fn lo(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn lo_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(0, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_lo(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(0, child_ptr);
         }
     }
     pub fn has_hi(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(1) }
     }
     pub fn clear_hi(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(1);
         }
     }
     pub fn hi_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.hi(), self.has_hi())
     }
     pub fn hi(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn hi_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(1, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_hi(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(1, child_ptr);
         }
     }
 }
@@ -1776,84 +1163,141 @@ impl ::protobuf::AsMut for Rectangle {
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for Rectangle {
-    #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Rectangle_msg_init) }
+        static ONCE_LOCK: ::std::sync::OnceLock<
+            ::protobuf::__internal::runtime::MiniTablePtr,
+        > = ::std::sync::OnceLock::new();
+        ONCE_LOCK
+            .get_or_init(|| unsafe {
+                super::routeguide__Rectangle_msg_init.0 = ::protobuf::__internal::runtime::upb_MiniTable_Build(
+                    "$33".as_ptr(),
+                    3,
+                    ::protobuf::__internal::runtime::THREAD_LOCAL_ARENA
+                        .with(|a| a.raw()),
+                    ::std::ptr::null_mut(),
+                );
+                let submessages = [
+                    <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
+                    <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
+                ];
+                let subenums = [];
+                assert!(
+                    ::protobuf::__internal::runtime::upb_MiniTable_Link(super::routeguide__Rectangle_msg_init
+                    .0, submessages.as_ptr() as * const * const
+                    ::protobuf::__internal::runtime::upb_MiniTable, submessages.len(),
+                    subenums.as_ptr(), subenums.len())
+                );
+                ::protobuf::__internal::runtime::MiniTablePtr(
+                    super::routeguide__Rectangle_msg_init.0,
+                )
+            })
+            .0
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for Rectangle {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RectangleView<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Rectangle_msg_init) }
+        <Rectangle as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RectangleMut<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Rectangle_msg_init) }
+        <Rectangle as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
-extern "C" {
-    /// Opaque static extern for this message's MiniTable, generated
-    /// by the upb C MiniTable codegen. The only valid way to
-    /// reference this static is with `std::ptr::addr_of!(..)`.
-    static routeguide__Rectangle_msg_init: ::protobuf::__internal::runtime::upb_MiniTable;
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for Rectangle {
+    type Msg = Rectangle;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Rectangle> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for Rectangle {
+    type Msg = Rectangle;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Rectangle> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for RectangleMut<'_> {
+    type Msg = Rectangle;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Rectangle> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RectangleMut<'_> {
+    type Msg = Rectangle;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Rectangle> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RectangleView<'_> {
+    type Msg = Rectangle;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Rectangle> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for RectangleMut<'_> {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
+    }
 }
 impl ::protobuf::OwnedMessageInterop for Rectangle {}
 impl<'a> ::protobuf::MessageMutInterop<'a> for RectangleMut<'a> {}
 impl<'a> ::protobuf::MessageViewInterop<'a> for RectangleView<'a> {
     unsafe fn __unstable_wrap_raw_message(msg: &'a *const ::std::ffi::c_void) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn __unstable_wrap_raw_message_unchecked_lifetime(
         msg: *const ::std::ffi::c_void,
     ) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     fn __unstable_as_raw_message(&self) -> *const ::std::ffi::c_void {
-        self.msg.as_ptr() as *const _
+        self.inner.raw().as_ptr() as *const _
     }
 }
-impl ::protobuf::__internal::MatcherEq for Rectangle {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for RectangleMut<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for RectangleView<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_IsEqual(
-                self.msg,
-                o.msg,
-                <Rectangle as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            )
-        }
-    }
-}
+pub(crate) static mut routeguide__Feature_msg_init: ::protobuf::__internal::runtime::MiniTablePtr = ::protobuf::__internal::runtime::MiniTablePtr(
+    ::std::ptr::null_mut(),
+);
 #[allow(non_camel_case_types)]
 pub struct Feature {
-    inner: ::protobuf::__internal::runtime::MessageInner,
+    inner: ::protobuf::__internal::runtime::OwnedMessageInner<Feature>,
 }
 impl ::protobuf::Message for Feature {}
 impl ::std::default::Default for Feature {
@@ -1864,6 +1308,11 @@ impl ::std::default::Default for Feature {
 impl ::protobuf::Parse for Feature {
     fn parse(serialized: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         Self::parse(serialized)
+    }
+    fn parse_dont_enforce_required(
+        serialized: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        Self::parse_dont_enforce_required(serialized)
     }
 }
 impl ::std::fmt::Debug for Feature {
@@ -1877,42 +1326,9 @@ impl ::std::fmt::Debug for Feature {
         write!(f, "{}", string)
     }
 }
-impl ::protobuf::TakeFrom for Feature {
-    fn take_from(&mut self, src: impl ::protobuf::AsMut<MutProxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::TakeFrom::take_from(&mut m, src)
-    }
-}
-impl ::protobuf::CopyFrom for Feature {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::CopyFrom::copy_from(&mut m, src)
-    }
-}
-impl ::protobuf::MergeFrom for Feature {
-    fn merge_from<'src>(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::MergeFrom::merge_from(&mut m, src)
-    }
-}
 impl ::protobuf::Serialize for Feature {
     fn serialize(&self) -> ::std::result::Result<Vec<u8>, ::protobuf::SerializeError> {
         ::protobuf::AsView::as_view(self).serialize()
-    }
-}
-impl ::protobuf::Clear for Feature {
-    fn clear(&mut self) {
-        let mut m = self.as_mut();
-        ::protobuf::Clear::clear(&mut m)
-    }
-}
-impl ::protobuf::ClearAndParse for Feature {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        let mut m = self.as_mut();
-        ::protobuf::ClearAndParse::clear_and_parse(&mut m, data)
     }
 }
 unsafe impl Sync for Feature {}
@@ -1927,7 +1343,7 @@ impl ::protobuf::MutProxied for Feature {
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
 pub struct FeatureView<'msg> {
-    msg: ::protobuf::__internal::runtime::RawMessage,
+    inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, Feature>,
     _phantom: ::std::marker::PhantomData<&'msg ()>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for FeatureView<'msg> {}
@@ -1958,10 +1374,12 @@ impl ::protobuf::Serialize for FeatureView<'_> {
 }
 impl ::std::default::Default for FeatureView<'_> {
     fn default() -> FeatureView<'static> {
-        FeatureView::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-        )
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(
+                ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
+            )
+        };
+        FeatureView::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
@@ -1969,64 +1387,38 @@ impl<'msg> FeatureView<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: ::protobuf::__internal::runtime::RawMessage,
+        inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, Feature>,
     ) -> Self {
         Self {
-            msg,
+            inner,
             _phantom: ::std::marker::PhantomData,
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.msg
+        self.inner.raw()
     }
     pub fn to_owned(&self) -> Feature {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
     pub fn name(self) -> ::protobuf::View<'msg, ::protobuf::ProtoString> {
-        let str_view = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetString(
-                self.raw_msg(),
-                f,
-                (b"").into(),
-            )
-        };
+        let str_view = unsafe { self.inner.ptr().get_string_at_index(0, (b"").into()) };
         unsafe { ::protobuf::ProtoStr::from_utf8_unchecked(str_view.as_ref()) }
     }
     pub fn has_location(self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(1) }
     }
     pub fn location_opt(self) -> ::protobuf::Optional<super::PointView<'msg>> {
         ::protobuf::Optional::new(self.location(), self.has_location())
     }
     pub fn location(self) -> super::PointView<'msg> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
 }
 unsafe impl Sync for FeatureView<'_> {}
@@ -2049,13 +1441,25 @@ impl<'msg> ::protobuf::IntoView<'msg> for FeatureView<'msg> {
 }
 impl<'msg> ::protobuf::IntoProxied<Feature> for FeatureView<'msg> {
     fn into_proxied(self, _private: ::protobuf::__internal::Private) -> Feature {
-        let dst = Feature::new();
+        let mut dst = Feature::new();
+        let dst_raw = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_raw_message_mut(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let dst_arena = ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let src_raw = ::protobuf::__internal::runtime::UpbGetMessagePtr::get_raw_message(
+            &self,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
             ::protobuf::__internal::runtime::upb_Message_DeepCopy(
-                dst.inner.msg,
-                self.msg,
+                dst_raw,
+                src_raw,
                 <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                dst.inner.arena.raw(),
+                dst_arena.raw(),
             )
         };
         dst
@@ -2067,136 +1471,6 @@ impl<'msg> ::protobuf::IntoProxied<Feature> for FeatureMut<'msg> {
             ::protobuf::IntoView::into_view(self),
             _private,
         )
-    }
-}
-unsafe impl ::protobuf::ProxiedInRepeated for Feature {
-    fn repeated_new(
-        _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::Repeated<Self> {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        unsafe {
-            ::protobuf::Repeated::from_inner(
-                ::protobuf::__internal::Private,
-                ::protobuf::__internal::runtime::InnerRepeated::from_raw_parts(
-                    ::protobuf::__internal::runtime::upb_Array_New(
-                        arena.raw(),
-                        ::protobuf::__internal::runtime::CType::Message,
-                    ),
-                    arena,
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_free(
-        _private: ::protobuf::__internal::Private,
-        _f: &mut ::protobuf::Repeated<Self>,
-    ) {}
-    fn repeated_len(f: ::protobuf::View<::protobuf::Repeated<Self>>) -> usize {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            )
-        }
-    }
-    unsafe fn repeated_set_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Set(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_get_unchecked(
-        f: ::protobuf::View<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::View<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Get(
-                    f.as_raw(::protobuf::__internal::Private),
-                    i,
-                )
-                .msg_val
-        }
-            .expect("upb_Array* element should not be NULL.");
-        ::protobuf::View::<Self>::new(::protobuf::__internal::Private, msg_ptr)
-    }
-    unsafe fn repeated_get_mut_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::Mut<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_GetMutable(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-            )
-        };
-        unsafe {
-            ::protobuf::Mut::<Self> {
-                inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    msg_ptr,
-                    f.arena(::protobuf::__internal::Private),
-                ),
-            }
-        }
-    }
-    fn repeated_clear(mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Resize(
-                f.as_raw(::protobuf::__internal::Private),
-                0,
-                f.raw_arena(::protobuf::__internal::Private),
-            )
-        };
-    }
-    fn repeated_push(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Append(
-                f.as_raw(::protobuf::__internal::Private),
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        };
-    }
-    fn repeated_copy_from(
-        src: ::protobuf::View<::protobuf::Repeated<Self>>,
-        dest: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::repeated_message_copy_from(
-                src,
-                dest,
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            );
-        }
-    }
-    fn repeated_reserve(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        additional: usize,
-    ) {
-        unsafe {
-            let size = ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            );
-            ::protobuf::__internal::runtime::upb_Array_Reserve(
-                f.as_raw(::protobuf::__internal::Private),
-                size + additional,
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        }
     }
 }
 impl ::protobuf::__internal::runtime::UpbTypeConversions for Feature {
@@ -2218,7 +1492,7 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for Feature {
             ::protobuf::__internal::runtime::Arena::from_raw(raw_parent_arena)
         });
         parent_arena
-            .fuse(val.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(val.as_message_mut_inner(::protobuf::__internal::Private).arena());
         ::protobuf::__internal::runtime::upb_MessageValue {
             msg_val: Some(val.raw_msg()),
         }
@@ -2226,30 +1500,29 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for Feature {
     unsafe fn from_message_value<'msg>(
         msg: ::protobuf::__internal::runtime::upb_MessageValue,
     ) -> ::protobuf::View<'msg, Self> {
-        FeatureView::new(
-            ::protobuf::__internal::Private,
-            unsafe { msg.msg_val }.expect("expected present message value in map"),
-        )
+        let raw = unsafe { msg.msg_val }.expect("expected present message value in map");
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        FeatureView::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn from_message_mut<'msg>(
-        msg: *mut ::protobuf::__internal::runtime::upb_Message,
+        msg: ::protobuf::__internal::runtime::RawMessage,
         arena: &'msg ::protobuf::__internal::runtime::Arena,
     ) -> FeatureMut<'msg> {
-        FeatureMut {
-            inner: unsafe {
-                ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    std::ptr::NonNull::new(msg)
-                        .expect("expected present message value in map"),
-                    arena,
-                )
-            },
-        }
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageMutInner::<
+                'msg,
+                Feature,
+            >::wrap_raw(msg, arena)
+        };
+        FeatureMut::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 pub struct FeatureMut<'msg> {
-    inner: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+    inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, Feature>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for FeatureMut<'msg> {}
 impl<'msg> ::protobuf::MessageMut<'msg> for FeatureMut<'msg> {
@@ -2271,77 +1544,16 @@ impl ::protobuf::Serialize for FeatureMut<'_> {
         ::protobuf::AsView::as_view(self).serialize()
     }
 }
-impl ::protobuf::Clear for FeatureMut<'_> {
-    fn clear(&mut self) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_Clear(
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            )
-        }
-    }
-}
-impl ::protobuf::ClearAndParse for FeatureMut<'_> {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        ::protobuf::Clear::clear(self);
-        let status = unsafe {
-            ::protobuf::__internal::runtime::wire::decode(
-                data,
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                self.arena(),
-            )
-        };
-        match status {
-            Ok(_) => Ok(()),
-            Err(_) => Err(::protobuf::ParseError),
-        }
-    }
-}
-impl ::protobuf::TakeFrom for FeatureMut<'_> {
-    fn take_from(&mut self, mut src: impl ::protobuf::AsMut<MutProxied = Feature>) {
-        let mut src = src.as_mut();
-        ::protobuf::CopyFrom::copy_from(self, ::protobuf::AsView::as_view(&src));
-        ::protobuf::Clear::clear(&mut src);
-    }
-}
-impl ::protobuf::CopyFrom for FeatureMut<'_> {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Feature>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_DeepCopy(self.raw_msg(), src
-                .as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                self.arena().raw())
-            );
-        }
-    }
-}
-impl ::protobuf::MergeFrom for FeatureMut<'_> {
-    fn merge_from(&mut self, src: impl ::protobuf::AsView<Proxied = Feature>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_MergeFrom(self.raw_msg(),
-                src.as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                ::std::ptr::null(), self.arena().raw())
-            );
-        }
-    }
-}
 #[allow(dead_code)]
 impl<'msg> FeatureMut<'msg> {
     #[doc(hidden)]
-    pub fn from_parent(
+    pub fn from_parent<ParentT: ::protobuf::Message>(
         _private: ::protobuf::__internal::Private,
-        parent: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+        parent: ::protobuf::__internal::runtime::MessageMutInner<'msg, ParentT>,
         msg: ::protobuf::__internal::runtime::RawMessage,
     ) -> Self {
         Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_parent(
+            inner: ::protobuf::__internal::runtime::MessageMutInner::from_parent(
                 parent,
                 msg,
             ),
@@ -2350,40 +1562,28 @@ impl<'msg> FeatureMut<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: &'msg mut ::protobuf::__internal::runtime::MessageInner,
+        inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, Feature>,
     ) -> Self {
-        Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::new(msg),
-        }
+        Self { inner }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg()
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef<'msg> {
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'msg, Feature> {
         self.inner
     }
     pub fn to_owned(&self) -> Feature {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
         self.inner.arena()
     }
     pub fn name(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetString(
-                self.raw_msg(),
-                f,
-                (b"").into(),
-            )
-        };
+        let str_view = unsafe { self.inner.ptr().get_string_at_index(0, (b"").into()) };
         unsafe { ::protobuf::ProtoStr::from_utf8_unchecked(str_view.as_ref()) }
     }
     pub fn set_name(
@@ -2394,102 +1594,62 @@ impl<'msg> FeatureMut<'msg> {
         let (view, arena) = s
             .into_inner(::protobuf::__internal::Private)
             .into_raw_parts();
-        let mm_ref = self.as_mutator_message_ref(::protobuf::__internal::Private);
-        let parent_arena = mm_ref.arena();
+        let parent_arena = self.inner.arena();
         parent_arena.fuse(&arena);
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldString(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                view,
-            );
+            self.inner.ptr_mut().set_base_field_string_at_index(0, view);
         }
     }
     pub fn has_location(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(1) }
     }
     pub fn clear_location(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(1);
         }
     }
     pub fn location_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.location(), self.has_location())
     }
     pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(1, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(1, child_ptr);
         }
     }
 }
@@ -2500,7 +1660,9 @@ impl<'msg> ::protobuf::AsView for FeatureMut<'msg> {
     type Proxied = Feature;
     fn as_view(&self) -> ::protobuf::View<'_, Feature> {
         FeatureView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -2511,7 +1673,9 @@ impl<'msg> ::protobuf::IntoView<'msg> for FeatureMut<'msg> {
         'msg: 'shorter,
     {
         FeatureView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -2533,56 +1697,48 @@ impl<'msg> ::protobuf::IntoMut<'msg> for FeatureMut<'msg> {
 #[allow(dead_code)]
 impl Feature {
     pub fn new() -> Self {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        let raw_msg = unsafe {
-            ::protobuf::__internal::runtime::upb_Message_New(
-                    <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                    arena.raw(),
-                )
-                .unwrap()
-        };
         Self {
-            inner: ::protobuf::__internal::runtime::MessageInner {
-                msg: raw_msg,
-                arena,
-            },
+            inner: ::protobuf::__internal::runtime::OwnedMessageInner::<Self>::new(),
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef {
-        ::protobuf::__internal::runtime::MutatorMessageRef::new(&mut self.inner)
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'_, Feature> {
+        ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
-        &self.inner.arena
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
     pub fn parse(data: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         let mut msg = Self::new();
         ::protobuf::ClearAndParse::clear_and_parse(&mut msg, data).map(|_| msg)
     }
+    pub fn parse_dont_enforce_required(
+        data: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        let mut msg = Self::new();
+        ::protobuf::ClearAndParse::clear_and_parse_dont_enforce_required(&mut msg, data)
+            .map(|_| msg)
+    }
     pub fn as_view(&self) -> FeatureView {
-        FeatureView::new(::protobuf::__internal::Private, self.inner.msg)
+        FeatureView::new(
+            ::protobuf::__internal::Private,
+            ::protobuf::__internal::runtime::MessageViewInner::view_of_owned(&self.inner),
+        )
     }
     pub fn as_mut(&mut self) -> FeatureMut {
-        FeatureMut::new(::protobuf::__internal::Private, &mut self.inner)
+        let inner = ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(
+            &mut self.inner,
+        );
+        FeatureMut::new(::protobuf::__internal::Private, inner)
     }
     pub fn name(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetString(
-                self.raw_msg(),
-                f,
-                (b"").into(),
-            )
-        };
+        let str_view = unsafe { self.inner.ptr().get_string_at_index(0, (b"").into()) };
         unsafe { ::protobuf::ProtoStr::from_utf8_unchecked(str_view.as_ref()) }
     }
     pub fn set_name(
@@ -2593,102 +1749,62 @@ impl Feature {
         let (view, arena) = s
             .into_inner(::protobuf::__internal::Private)
             .into_raw_parts();
-        let mm_ref = self.as_mutator_message_ref(::protobuf::__internal::Private);
-        let parent_arena = mm_ref.arena();
+        let parent_arena = self.inner.arena();
         parent_arena.fuse(&arena);
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldString(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                view,
-            );
+            self.inner.ptr_mut().set_base_field_string_at_index(0, view);
         }
     }
     pub fn has_location(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(1) }
     }
     pub fn clear_location(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(1);
         }
     }
     pub fn location_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.location(), self.has_location())
     }
     pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(1, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(1, child_ptr);
         }
     }
 }
@@ -2713,84 +1829,140 @@ impl ::protobuf::AsMut for Feature {
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for Feature {
-    #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Feature_msg_init) }
+        static ONCE_LOCK: ::std::sync::OnceLock<
+            ::protobuf::__internal::runtime::MiniTablePtr,
+        > = ::std::sync::OnceLock::new();
+        ONCE_LOCK
+            .get_or_init(|| unsafe {
+                super::routeguide__Feature_msg_init.0 = ::protobuf::__internal::runtime::upb_MiniTable_Build(
+                    "$1X3".as_ptr(),
+                    4,
+                    ::protobuf::__internal::runtime::THREAD_LOCAL_ARENA
+                        .with(|a| a.raw()),
+                    ::std::ptr::null_mut(),
+                );
+                let submessages = [
+                    <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
+                ];
+                let subenums = [];
+                assert!(
+                    ::protobuf::__internal::runtime::upb_MiniTable_Link(super::routeguide__Feature_msg_init
+                    .0, submessages.as_ptr() as * const * const
+                    ::protobuf::__internal::runtime::upb_MiniTable, submessages.len(),
+                    subenums.as_ptr(), subenums.len())
+                );
+                ::protobuf::__internal::runtime::MiniTablePtr(
+                    super::routeguide__Feature_msg_init.0,
+                )
+            })
+            .0
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for Feature {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for FeatureView<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Feature_msg_init) }
+        <Feature as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for FeatureMut<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__Feature_msg_init) }
+        <Feature as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
-extern "C" {
-    /// Opaque static extern for this message's MiniTable, generated
-    /// by the upb C MiniTable codegen. The only valid way to
-    /// reference this static is with `std::ptr::addr_of!(..)`.
-    static routeguide__Feature_msg_init: ::protobuf::__internal::runtime::upb_MiniTable;
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for Feature {
+    type Msg = Feature;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Feature> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for Feature {
+    type Msg = Feature;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Feature> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for FeatureMut<'_> {
+    type Msg = Feature;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Feature> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for FeatureMut<'_> {
+    type Msg = Feature;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Feature> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for FeatureView<'_> {
+    type Msg = Feature;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<Feature> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for FeatureMut<'_> {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
+    }
 }
 impl ::protobuf::OwnedMessageInterop for Feature {}
 impl<'a> ::protobuf::MessageMutInterop<'a> for FeatureMut<'a> {}
 impl<'a> ::protobuf::MessageViewInterop<'a> for FeatureView<'a> {
     unsafe fn __unstable_wrap_raw_message(msg: &'a *const ::std::ffi::c_void) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn __unstable_wrap_raw_message_unchecked_lifetime(
         msg: *const ::std::ffi::c_void,
     ) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     fn __unstable_as_raw_message(&self) -> *const ::std::ffi::c_void {
-        self.msg.as_ptr() as *const _
+        self.inner.raw().as_ptr() as *const _
     }
 }
-impl ::protobuf::__internal::MatcherEq for Feature {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for FeatureMut<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for FeatureView<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_IsEqual(
-                self.msg,
-                o.msg,
-                <Feature as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            )
-        }
-    }
-}
+pub(crate) static mut routeguide__RouteNote_msg_init: ::protobuf::__internal::runtime::MiniTablePtr = ::protobuf::__internal::runtime::MiniTablePtr(
+    ::std::ptr::null_mut(),
+);
 #[allow(non_camel_case_types)]
 pub struct RouteNote {
-    inner: ::protobuf::__internal::runtime::MessageInner,
+    inner: ::protobuf::__internal::runtime::OwnedMessageInner<RouteNote>,
 }
 impl ::protobuf::Message for RouteNote {}
 impl ::std::default::Default for RouteNote {
@@ -2801,6 +1973,11 @@ impl ::std::default::Default for RouteNote {
 impl ::protobuf::Parse for RouteNote {
     fn parse(serialized: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         Self::parse(serialized)
+    }
+    fn parse_dont_enforce_required(
+        serialized: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        Self::parse_dont_enforce_required(serialized)
     }
 }
 impl ::std::fmt::Debug for RouteNote {
@@ -2814,42 +1991,9 @@ impl ::std::fmt::Debug for RouteNote {
         write!(f, "{}", string)
     }
 }
-impl ::protobuf::TakeFrom for RouteNote {
-    fn take_from(&mut self, src: impl ::protobuf::AsMut<MutProxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::TakeFrom::take_from(&mut m, src)
-    }
-}
-impl ::protobuf::CopyFrom for RouteNote {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::CopyFrom::copy_from(&mut m, src)
-    }
-}
-impl ::protobuf::MergeFrom for RouteNote {
-    fn merge_from<'src>(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::MergeFrom::merge_from(&mut m, src)
-    }
-}
 impl ::protobuf::Serialize for RouteNote {
     fn serialize(&self) -> ::std::result::Result<Vec<u8>, ::protobuf::SerializeError> {
         ::protobuf::AsView::as_view(self).serialize()
-    }
-}
-impl ::protobuf::Clear for RouteNote {
-    fn clear(&mut self) {
-        let mut m = self.as_mut();
-        ::protobuf::Clear::clear(&mut m)
-    }
-}
-impl ::protobuf::ClearAndParse for RouteNote {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        let mut m = self.as_mut();
-        ::protobuf::ClearAndParse::clear_and_parse(&mut m, data)
     }
 }
 unsafe impl Sync for RouteNote {}
@@ -2864,7 +2008,7 @@ impl ::protobuf::MutProxied for RouteNote {
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
 pub struct RouteNoteView<'msg> {
-    msg: ::protobuf::__internal::runtime::RawMessage,
+    inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, RouteNote>,
     _phantom: ::std::marker::PhantomData<&'msg ()>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for RouteNoteView<'msg> {}
@@ -2895,10 +2039,12 @@ impl ::protobuf::Serialize for RouteNoteView<'_> {
 }
 impl ::std::default::Default for RouteNoteView<'_> {
     fn default() -> RouteNoteView<'static> {
-        RouteNoteView::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-        )
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(
+                ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
+            )
+        };
+        RouteNoteView::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
@@ -2906,63 +2052,37 @@ impl<'msg> RouteNoteView<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: ::protobuf::__internal::runtime::RawMessage,
+        inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, RouteNote>,
     ) -> Self {
         Self {
-            msg,
+            inner,
             _phantom: ::std::marker::PhantomData,
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.msg
+        self.inner.raw()
     }
     pub fn to_owned(&self) -> RouteNote {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
     pub fn has_location(self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(0) }
     }
     pub fn location_opt(self) -> ::protobuf::Optional<super::PointView<'msg>> {
         ::protobuf::Optional::new(self.location(), self.has_location())
     }
     pub fn location(self) -> super::PointView<'msg> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn message(self) -> ::protobuf::View<'msg, ::protobuf::ProtoString> {
-        let str_view = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetString(
-                self.raw_msg(),
-                f,
-                (b"").into(),
-            )
-        };
+        let str_view = unsafe { self.inner.ptr().get_string_at_index(1, (b"").into()) };
         unsafe { ::protobuf::ProtoStr::from_utf8_unchecked(str_view.as_ref()) }
     }
 }
@@ -2986,13 +2106,25 @@ impl<'msg> ::protobuf::IntoView<'msg> for RouteNoteView<'msg> {
 }
 impl<'msg> ::protobuf::IntoProxied<RouteNote> for RouteNoteView<'msg> {
     fn into_proxied(self, _private: ::protobuf::__internal::Private) -> RouteNote {
-        let dst = RouteNote::new();
+        let mut dst = RouteNote::new();
+        let dst_raw = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_raw_message_mut(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let dst_arena = ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let src_raw = ::protobuf::__internal::runtime::UpbGetMessagePtr::get_raw_message(
+            &self,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
             ::protobuf::__internal::runtime::upb_Message_DeepCopy(
-                dst.inner.msg,
-                self.msg,
+                dst_raw,
+                src_raw,
                 <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                dst.inner.arena.raw(),
+                dst_arena.raw(),
             )
         };
         dst
@@ -3004,136 +2136,6 @@ impl<'msg> ::protobuf::IntoProxied<RouteNote> for RouteNoteMut<'msg> {
             ::protobuf::IntoView::into_view(self),
             _private,
         )
-    }
-}
-unsafe impl ::protobuf::ProxiedInRepeated for RouteNote {
-    fn repeated_new(
-        _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::Repeated<Self> {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        unsafe {
-            ::protobuf::Repeated::from_inner(
-                ::protobuf::__internal::Private,
-                ::protobuf::__internal::runtime::InnerRepeated::from_raw_parts(
-                    ::protobuf::__internal::runtime::upb_Array_New(
-                        arena.raw(),
-                        ::protobuf::__internal::runtime::CType::Message,
-                    ),
-                    arena,
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_free(
-        _private: ::protobuf::__internal::Private,
-        _f: &mut ::protobuf::Repeated<Self>,
-    ) {}
-    fn repeated_len(f: ::protobuf::View<::protobuf::Repeated<Self>>) -> usize {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            )
-        }
-    }
-    unsafe fn repeated_set_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Set(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_get_unchecked(
-        f: ::protobuf::View<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::View<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Get(
-                    f.as_raw(::protobuf::__internal::Private),
-                    i,
-                )
-                .msg_val
-        }
-            .expect("upb_Array* element should not be NULL.");
-        ::protobuf::View::<Self>::new(::protobuf::__internal::Private, msg_ptr)
-    }
-    unsafe fn repeated_get_mut_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::Mut<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_GetMutable(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-            )
-        };
-        unsafe {
-            ::protobuf::Mut::<Self> {
-                inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    msg_ptr,
-                    f.arena(::protobuf::__internal::Private),
-                ),
-            }
-        }
-    }
-    fn repeated_clear(mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Resize(
-                f.as_raw(::protobuf::__internal::Private),
-                0,
-                f.raw_arena(::protobuf::__internal::Private),
-            )
-        };
-    }
-    fn repeated_push(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Append(
-                f.as_raw(::protobuf::__internal::Private),
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        };
-    }
-    fn repeated_copy_from(
-        src: ::protobuf::View<::protobuf::Repeated<Self>>,
-        dest: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::repeated_message_copy_from(
-                src,
-                dest,
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            );
-        }
-    }
-    fn repeated_reserve(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        additional: usize,
-    ) {
-        unsafe {
-            let size = ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            );
-            ::protobuf::__internal::runtime::upb_Array_Reserve(
-                f.as_raw(::protobuf::__internal::Private),
-                size + additional,
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        }
     }
 }
 impl ::protobuf::__internal::runtime::UpbTypeConversions for RouteNote {
@@ -3155,7 +2157,7 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for RouteNote {
             ::protobuf::__internal::runtime::Arena::from_raw(raw_parent_arena)
         });
         parent_arena
-            .fuse(val.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(val.as_message_mut_inner(::protobuf::__internal::Private).arena());
         ::protobuf::__internal::runtime::upb_MessageValue {
             msg_val: Some(val.raw_msg()),
         }
@@ -3163,30 +2165,29 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for RouteNote {
     unsafe fn from_message_value<'msg>(
         msg: ::protobuf::__internal::runtime::upb_MessageValue,
     ) -> ::protobuf::View<'msg, Self> {
-        RouteNoteView::new(
-            ::protobuf::__internal::Private,
-            unsafe { msg.msg_val }.expect("expected present message value in map"),
-        )
+        let raw = unsafe { msg.msg_val }.expect("expected present message value in map");
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        RouteNoteView::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn from_message_mut<'msg>(
-        msg: *mut ::protobuf::__internal::runtime::upb_Message,
+        msg: ::protobuf::__internal::runtime::RawMessage,
         arena: &'msg ::protobuf::__internal::runtime::Arena,
     ) -> RouteNoteMut<'msg> {
-        RouteNoteMut {
-            inner: unsafe {
-                ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    std::ptr::NonNull::new(msg)
-                        .expect("expected present message value in map"),
-                    arena,
-                )
-            },
-        }
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageMutInner::<
+                'msg,
+                RouteNote,
+            >::wrap_raw(msg, arena)
+        };
+        RouteNoteMut::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 pub struct RouteNoteMut<'msg> {
-    inner: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+    inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, RouteNote>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for RouteNoteMut<'msg> {}
 impl<'msg> ::protobuf::MessageMut<'msg> for RouteNoteMut<'msg> {
@@ -3208,77 +2209,16 @@ impl ::protobuf::Serialize for RouteNoteMut<'_> {
         ::protobuf::AsView::as_view(self).serialize()
     }
 }
-impl ::protobuf::Clear for RouteNoteMut<'_> {
-    fn clear(&mut self) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_Clear(
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            )
-        }
-    }
-}
-impl ::protobuf::ClearAndParse for RouteNoteMut<'_> {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        ::protobuf::Clear::clear(self);
-        let status = unsafe {
-            ::protobuf::__internal::runtime::wire::decode(
-                data,
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                self.arena(),
-            )
-        };
-        match status {
-            Ok(_) => Ok(()),
-            Err(_) => Err(::protobuf::ParseError),
-        }
-    }
-}
-impl ::protobuf::TakeFrom for RouteNoteMut<'_> {
-    fn take_from(&mut self, mut src: impl ::protobuf::AsMut<MutProxied = RouteNote>) {
-        let mut src = src.as_mut();
-        ::protobuf::CopyFrom::copy_from(self, ::protobuf::AsView::as_view(&src));
-        ::protobuf::Clear::clear(&mut src);
-    }
-}
-impl ::protobuf::CopyFrom for RouteNoteMut<'_> {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = RouteNote>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_DeepCopy(self.raw_msg(), src
-                .as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                self.arena().raw())
-            );
-        }
-    }
-}
-impl ::protobuf::MergeFrom for RouteNoteMut<'_> {
-    fn merge_from(&mut self, src: impl ::protobuf::AsView<Proxied = RouteNote>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_MergeFrom(self.raw_msg(),
-                src.as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                ::std::ptr::null(), self.arena().raw())
-            );
-        }
-    }
-}
 #[allow(dead_code)]
 impl<'msg> RouteNoteMut<'msg> {
     #[doc(hidden)]
-    pub fn from_parent(
+    pub fn from_parent<ParentT: ::protobuf::Message>(
         _private: ::protobuf::__internal::Private,
-        parent: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+        parent: ::protobuf::__internal::runtime::MessageMutInner<'msg, ParentT>,
         msg: ::protobuf::__internal::runtime::RawMessage,
     ) -> Self {
         Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_parent(
+            inner: ::protobuf::__internal::runtime::MessageMutInner::from_parent(
                 parent,
                 msg,
             ),
@@ -3287,123 +2227,80 @@ impl<'msg> RouteNoteMut<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: &'msg mut ::protobuf::__internal::runtime::MessageInner,
+        inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, RouteNote>,
     ) -> Self {
-        Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::new(msg),
-        }
+        Self { inner }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg()
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef<'msg> {
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'msg, RouteNote> {
         self.inner
     }
     pub fn to_owned(&self) -> RouteNote {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
         self.inner.arena()
     }
     pub fn has_location(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(0) }
     }
     pub fn clear_location(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(0);
         }
     }
     pub fn location_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.location(), self.has_location())
     }
     pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(0, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(0, child_ptr);
         }
     }
     pub fn message(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetString(
-                self.raw_msg(),
-                f,
-                (b"").into(),
-            )
-        };
+        let str_view = unsafe { self.inner.ptr().get_string_at_index(1, (b"").into()) };
         unsafe { ::protobuf::ProtoStr::from_utf8_unchecked(str_view.as_ref()) }
     }
     pub fn set_message(
@@ -3414,19 +2311,10 @@ impl<'msg> RouteNoteMut<'msg> {
         let (view, arena) = s
             .into_inner(::protobuf::__internal::Private)
             .into_raw_parts();
-        let mm_ref = self.as_mutator_message_ref(::protobuf::__internal::Private);
-        let parent_arena = mm_ref.arena();
+        let parent_arena = self.inner.arena();
         parent_arena.fuse(&arena);
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldString(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                view,
-            );
+            self.inner.ptr_mut().set_base_field_string_at_index(1, view);
         }
     }
 }
@@ -3437,7 +2325,9 @@ impl<'msg> ::protobuf::AsView for RouteNoteMut<'msg> {
     type Proxied = RouteNote;
     fn as_view(&self) -> ::protobuf::View<'_, RouteNote> {
         RouteNoteView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -3448,7 +2338,9 @@ impl<'msg> ::protobuf::IntoView<'msg> for RouteNoteMut<'msg> {
         'msg: 'shorter,
     {
         RouteNoteView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -3470,139 +2362,100 @@ impl<'msg> ::protobuf::IntoMut<'msg> for RouteNoteMut<'msg> {
 #[allow(dead_code)]
 impl RouteNote {
     pub fn new() -> Self {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        let raw_msg = unsafe {
-            ::protobuf::__internal::runtime::upb_Message_New(
-                    <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                    arena.raw(),
-                )
-                .unwrap()
-        };
         Self {
-            inner: ::protobuf::__internal::runtime::MessageInner {
-                msg: raw_msg,
-                arena,
-            },
+            inner: ::protobuf::__internal::runtime::OwnedMessageInner::<Self>::new(),
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef {
-        ::protobuf::__internal::runtime::MutatorMessageRef::new(&mut self.inner)
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'_, RouteNote> {
+        ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
-        &self.inner.arena
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
     pub fn parse(data: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         let mut msg = Self::new();
         ::protobuf::ClearAndParse::clear_and_parse(&mut msg, data).map(|_| msg)
     }
+    pub fn parse_dont_enforce_required(
+        data: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        let mut msg = Self::new();
+        ::protobuf::ClearAndParse::clear_and_parse_dont_enforce_required(&mut msg, data)
+            .map(|_| msg)
+    }
     pub fn as_view(&self) -> RouteNoteView {
-        RouteNoteView::new(::protobuf::__internal::Private, self.inner.msg)
+        RouteNoteView::new(
+            ::protobuf::__internal::Private,
+            ::protobuf::__internal::runtime::MessageViewInner::view_of_owned(&self.inner),
+        )
     }
     pub fn as_mut(&mut self) -> RouteNoteMut {
-        RouteNoteMut::new(::protobuf::__internal::Private, &mut self.inner)
+        let inner = ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(
+            &mut self.inner,
+        );
+        RouteNoteMut::new(::protobuf::__internal::Private, inner)
     }
     pub fn has_location(&self) -> bool {
-        unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_HasBaseField(self.raw_msg(), f)
-        }
+        unsafe { self.inner.ptr().has_field_at_index(0) }
     }
     pub fn clear_location(&mut self) {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_ClearBaseField(
-                self.raw_msg(),
-                f,
-            );
+            self.inner.ptr().clear_field_at_index(0);
         }
     }
     pub fn location_opt(&self) -> ::protobuf::Optional<super::PointView<'_>> {
         ::protobuf::Optional::new(self.location(), self.has_location())
     }
     pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetMessage(self.raw_msg(), f)
+        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
+        let raw = submsg
+            .map(|ptr| ptr.raw())
+            .unwrap_or(::protobuf::__internal::runtime::ScratchSpace::zeroed_block());
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
         };
-        match submsg {
-            None => {
-                super::PointView::new(
-                    ::protobuf::__internal::Private,
-                    ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-                )
-            }
-            Some(sub_raw_msg) => {
-                super::PointView::new(::protobuf::__internal::Private, sub_raw_msg)
-            }
-        }
+        super::PointView::new(::protobuf::__internal::Private, inner)
     }
     pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let raw_msg = unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetOrCreateMutableMessage(
-                    self.raw_msg(),
-                    mt,
-                    f,
-                    self.arena().raw(),
-                )
+        let ptr = unsafe {
+            self.inner
+                .ptr_mut()
+                .get_or_create_mutable_message_at_index(0, self.arena())
                 .unwrap()
         };
         super::PointMut::from_parent(
             ::protobuf::__internal::Private,
-            self.as_mutator_message_ref(::protobuf::__internal::Private),
-            raw_msg,
+            self.as_message_mut_inner(::protobuf::__internal::Private),
+            ptr.raw(),
         )
     }
     pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        let mut msg = val.into_proxied(::protobuf::__internal::Private);
-        self.as_mutator_message_ref(::protobuf::__internal::Private)
+        let mut child = val.into_proxied(::protobuf::__internal::Private);
+        self.inner
             .arena()
-            .fuse(msg.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(
+                ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+                    &mut child,
+                    ::protobuf::__internal::Private,
+                ),
+            );
+        let child_ptr = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_ptr_mut(
+            &mut child,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldMessage(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                msg.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-            );
+            self.inner.ptr_mut().set_base_field_message_at_index(0, child_ptr);
         }
     }
     pub fn message(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetString(
-                self.raw_msg(),
-                f,
-                (b"").into(),
-            )
-        };
+        let str_view = unsafe { self.inner.ptr().get_string_at_index(1, (b"").into()) };
         unsafe { ::protobuf::ProtoStr::from_utf8_unchecked(str_view.as_ref()) }
     }
     pub fn set_message(
@@ -3613,19 +2466,10 @@ impl RouteNote {
         let (view, arena) = s
             .into_inner(::protobuf::__internal::Private)
             .into_raw_parts();
-        let mm_ref = self.as_mutator_message_ref(::protobuf::__internal::Private);
-        let parent_arena = mm_ref.arena();
+        let parent_arena = self.inner.arena();
         parent_arena.fuse(&arena);
         unsafe {
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldString(
-                self.as_mutator_message_ref(::protobuf::__internal::Private).msg(),
-                f,
-                view,
-            );
+            self.inner.ptr_mut().set_base_field_string_at_index(1, view);
         }
     }
 }
@@ -3650,84 +2494,140 @@ impl ::protobuf::AsMut for RouteNote {
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RouteNote {
-    #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__RouteNote_msg_init) }
+        static ONCE_LOCK: ::std::sync::OnceLock<
+            ::protobuf::__internal::runtime::MiniTablePtr,
+        > = ::std::sync::OnceLock::new();
+        ONCE_LOCK
+            .get_or_init(|| unsafe {
+                super::routeguide__RouteNote_msg_init.0 = ::protobuf::__internal::runtime::upb_MiniTable_Build(
+                    "$31X".as_ptr(),
+                    4,
+                    ::protobuf::__internal::runtime::THREAD_LOCAL_ARENA
+                        .with(|a| a.raw()),
+                    ::std::ptr::null_mut(),
+                );
+                let submessages = [
+                    <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
+                ];
+                let subenums = [];
+                assert!(
+                    ::protobuf::__internal::runtime::upb_MiniTable_Link(super::routeguide__RouteNote_msg_init
+                    .0, submessages.as_ptr() as * const * const
+                    ::protobuf::__internal::runtime::upb_MiniTable, submessages.len(),
+                    subenums.as_ptr(), subenums.len())
+                );
+                ::protobuf::__internal::runtime::MiniTablePtr(
+                    super::routeguide__RouteNote_msg_init.0,
+                )
+            })
+            .0
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for RouteNote {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RouteNoteView<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__RouteNote_msg_init) }
+        <RouteNote as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RouteNoteMut<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__RouteNote_msg_init) }
+        <RouteNote as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
-extern "C" {
-    /// Opaque static extern for this message's MiniTable, generated
-    /// by the upb C MiniTable codegen. The only valid way to
-    /// reference this static is with `std::ptr::addr_of!(..)`.
-    static routeguide__RouteNote_msg_init: ::protobuf::__internal::runtime::upb_MiniTable;
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for RouteNote {
+    type Msg = RouteNote;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteNote> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RouteNote {
+    type Msg = RouteNote;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteNote> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for RouteNoteMut<'_> {
+    type Msg = RouteNote;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteNote> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RouteNoteMut<'_> {
+    type Msg = RouteNote;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteNote> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RouteNoteView<'_> {
+    type Msg = RouteNote;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteNote> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for RouteNoteMut<'_> {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
+    }
 }
 impl ::protobuf::OwnedMessageInterop for RouteNote {}
 impl<'a> ::protobuf::MessageMutInterop<'a> for RouteNoteMut<'a> {}
 impl<'a> ::protobuf::MessageViewInterop<'a> for RouteNoteView<'a> {
     unsafe fn __unstable_wrap_raw_message(msg: &'a *const ::std::ffi::c_void) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn __unstable_wrap_raw_message_unchecked_lifetime(
         msg: *const ::std::ffi::c_void,
     ) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     fn __unstable_as_raw_message(&self) -> *const ::std::ffi::c_void {
-        self.msg.as_ptr() as *const _
+        self.inner.raw().as_ptr() as *const _
     }
 }
-impl ::protobuf::__internal::MatcherEq for RouteNote {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for RouteNoteMut<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for RouteNoteView<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_IsEqual(
-                self.msg,
-                o.msg,
-                <RouteNote as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            )
-        }
-    }
-}
+pub(crate) static mut routeguide__RouteSummary_msg_init: ::protobuf::__internal::runtime::MiniTablePtr = ::protobuf::__internal::runtime::MiniTablePtr(
+    ::std::ptr::null_mut(),
+);
 #[allow(non_camel_case_types)]
 pub struct RouteSummary {
-    inner: ::protobuf::__internal::runtime::MessageInner,
+    inner: ::protobuf::__internal::runtime::OwnedMessageInner<RouteSummary>,
 }
 impl ::protobuf::Message for RouteSummary {}
 impl ::std::default::Default for RouteSummary {
@@ -3738,6 +2638,11 @@ impl ::std::default::Default for RouteSummary {
 impl ::protobuf::Parse for RouteSummary {
     fn parse(serialized: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         Self::parse(serialized)
+    }
+    fn parse_dont_enforce_required(
+        serialized: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        Self::parse_dont_enforce_required(serialized)
     }
 }
 impl ::std::fmt::Debug for RouteSummary {
@@ -3751,42 +2656,9 @@ impl ::std::fmt::Debug for RouteSummary {
         write!(f, "{}", string)
     }
 }
-impl ::protobuf::TakeFrom for RouteSummary {
-    fn take_from(&mut self, src: impl ::protobuf::AsMut<MutProxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::TakeFrom::take_from(&mut m, src)
-    }
-}
-impl ::protobuf::CopyFrom for RouteSummary {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::CopyFrom::copy_from(&mut m, src)
-    }
-}
-impl ::protobuf::MergeFrom for RouteSummary {
-    fn merge_from<'src>(&mut self, src: impl ::protobuf::AsView<Proxied = Self>) {
-        let mut m = self.as_mut();
-        ::protobuf::MergeFrom::merge_from(&mut m, src)
-    }
-}
 impl ::protobuf::Serialize for RouteSummary {
     fn serialize(&self) -> ::std::result::Result<Vec<u8>, ::protobuf::SerializeError> {
         ::protobuf::AsView::as_view(self).serialize()
-    }
-}
-impl ::protobuf::Clear for RouteSummary {
-    fn clear(&mut self) {
-        let mut m = self.as_mut();
-        ::protobuf::Clear::clear(&mut m)
-    }
-}
-impl ::protobuf::ClearAndParse for RouteSummary {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        let mut m = self.as_mut();
-        ::protobuf::ClearAndParse::clear_and_parse(&mut m, data)
     }
 }
 unsafe impl Sync for RouteSummary {}
@@ -3801,7 +2673,7 @@ impl ::protobuf::MutProxied for RouteSummary {
 #[derive(Copy, Clone)]
 #[allow(dead_code)]
 pub struct RouteSummaryView<'msg> {
-    msg: ::protobuf::__internal::runtime::RawMessage,
+    inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, RouteSummary>,
     _phantom: ::std::marker::PhantomData<&'msg ()>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for RouteSummaryView<'msg> {}
@@ -3832,10 +2704,12 @@ impl ::protobuf::Serialize for RouteSummaryView<'_> {
 }
 impl ::std::default::Default for RouteSummaryView<'_> {
     fn default() -> RouteSummaryView<'static> {
-        RouteSummaryView::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
-        )
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(
+                ::protobuf::__internal::runtime::ScratchSpace::zeroed_block(),
+            )
+        };
+        RouteSummaryView::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
@@ -3843,81 +2717,37 @@ impl<'msg> RouteSummaryView<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: ::protobuf::__internal::runtime::RawMessage,
+        inner: ::protobuf::__internal::runtime::MessageViewInner<'msg, RouteSummary>,
     ) -> Self {
         Self {
-            msg,
+            inner,
             _phantom: ::std::marker::PhantomData,
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.msg
+        self.inner.raw()
     }
     pub fn to_owned(&self) -> RouteSummary {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
     pub fn point_count(self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn feature_count(self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn distance(self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                2,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(2, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn elapsed_time(self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                3,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(3, (0i32).into()).try_into().unwrap()
         }
     }
 }
@@ -3941,13 +2771,25 @@ impl<'msg> ::protobuf::IntoView<'msg> for RouteSummaryView<'msg> {
 }
 impl<'msg> ::protobuf::IntoProxied<RouteSummary> for RouteSummaryView<'msg> {
     fn into_proxied(self, _private: ::protobuf::__internal::Private) -> RouteSummary {
-        let dst = RouteSummary::new();
+        let mut dst = RouteSummary::new();
+        let dst_raw = ::protobuf::__internal::runtime::UpbGetMessagePtrMut::get_raw_message_mut(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let dst_arena = ::protobuf::__internal::runtime::UpbGetArena::get_arena(
+            &mut dst,
+            ::protobuf::__internal::Private,
+        );
+        let src_raw = ::protobuf::__internal::runtime::UpbGetMessagePtr::get_raw_message(
+            &self,
+            ::protobuf::__internal::Private,
+        );
         unsafe {
             ::protobuf::__internal::runtime::upb_Message_DeepCopy(
-                dst.inner.msg,
-                self.msg,
+                dst_raw,
+                src_raw,
                 <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                dst.inner.arena.raw(),
+                dst_arena.raw(),
             )
         };
         dst
@@ -3959,136 +2801,6 @@ impl<'msg> ::protobuf::IntoProxied<RouteSummary> for RouteSummaryMut<'msg> {
             ::protobuf::IntoView::into_view(self),
             _private,
         )
-    }
-}
-unsafe impl ::protobuf::ProxiedInRepeated for RouteSummary {
-    fn repeated_new(
-        _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::Repeated<Self> {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        unsafe {
-            ::protobuf::Repeated::from_inner(
-                ::protobuf::__internal::Private,
-                ::protobuf::__internal::runtime::InnerRepeated::from_raw_parts(
-                    ::protobuf::__internal::runtime::upb_Array_New(
-                        arena.raw(),
-                        ::protobuf::__internal::runtime::CType::Message,
-                    ),
-                    arena,
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_free(
-        _private: ::protobuf::__internal::Private,
-        _f: &mut ::protobuf::Repeated<Self>,
-    ) {}
-    fn repeated_len(f: ::protobuf::View<::protobuf::Repeated<Self>>) -> usize {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            )
-        }
-    }
-    unsafe fn repeated_set_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Set(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-            )
-        }
-    }
-    unsafe fn repeated_get_unchecked(
-        f: ::protobuf::View<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::View<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Get(
-                    f.as_raw(::protobuf::__internal::Private),
-                    i,
-                )
-                .msg_val
-        }
-            .expect("upb_Array* element should not be NULL.");
-        ::protobuf::View::<Self>::new(::protobuf::__internal::Private, msg_ptr)
-    }
-    unsafe fn repeated_get_mut_unchecked(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        i: usize,
-    ) -> ::protobuf::Mut<Self> {
-        let msg_ptr = unsafe {
-            ::protobuf::__internal::runtime::upb_Array_GetMutable(
-                f.as_raw(::protobuf::__internal::Private),
-                i,
-            )
-        };
-        unsafe {
-            ::protobuf::Mut::<Self> {
-                inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    msg_ptr,
-                    f.arena(::protobuf::__internal::Private),
-                ),
-            }
-        }
-    }
-    fn repeated_clear(mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Resize(
-                f.as_raw(::protobuf::__internal::Private),
-                0,
-                f.raw_arena(::protobuf::__internal::Private),
-            )
-        };
-    }
-    fn repeated_push(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        v: impl ::protobuf::IntoProxied<Self>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Array_Append(
-                f.as_raw(::protobuf::__internal::Private),
-                <Self as ::protobuf::__internal::runtime::UpbTypeConversions>::into_message_value_fuse_if_required(
-                    f.raw_arena(::protobuf::__internal::Private),
-                    v.into_proxied(::protobuf::__internal::Private),
-                ),
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        };
-    }
-    fn repeated_copy_from(
-        src: ::protobuf::View<::protobuf::Repeated<Self>>,
-        dest: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::repeated_message_copy_from(
-                src,
-                dest,
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            );
-        }
-    }
-    fn repeated_reserve(
-        mut f: ::protobuf::Mut<::protobuf::Repeated<Self>>,
-        additional: usize,
-    ) {
-        unsafe {
-            let size = ::protobuf::__internal::runtime::upb_Array_Size(
-                f.as_raw(::protobuf::__internal::Private),
-            );
-            ::protobuf::__internal::runtime::upb_Array_Reserve(
-                f.as_raw(::protobuf::__internal::Private),
-                size + additional,
-                f.raw_arena(::protobuf::__internal::Private),
-            );
-        }
     }
 }
 impl ::protobuf::__internal::runtime::UpbTypeConversions for RouteSummary {
@@ -4110,7 +2822,7 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for RouteSummary {
             ::protobuf::__internal::runtime::Arena::from_raw(raw_parent_arena)
         });
         parent_arena
-            .fuse(val.as_mutator_message_ref(::protobuf::__internal::Private).arena());
+            .fuse(val.as_message_mut_inner(::protobuf::__internal::Private).arena());
         ::protobuf::__internal::runtime::upb_MessageValue {
             msg_val: Some(val.raw_msg()),
         }
@@ -4118,30 +2830,29 @@ impl ::protobuf::__internal::runtime::UpbTypeConversions for RouteSummary {
     unsafe fn from_message_value<'msg>(
         msg: ::protobuf::__internal::runtime::upb_MessageValue,
     ) -> ::protobuf::View<'msg, Self> {
-        RouteSummaryView::new(
-            ::protobuf::__internal::Private,
-            unsafe { msg.msg_val }.expect("expected present message value in map"),
-        )
+        let raw = unsafe { msg.msg_val }.expect("expected present message value in map");
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        RouteSummaryView::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn from_message_mut<'msg>(
-        msg: *mut ::protobuf::__internal::runtime::upb_Message,
+        msg: ::protobuf::__internal::runtime::RawMessage,
         arena: &'msg ::protobuf::__internal::runtime::Arena,
     ) -> RouteSummaryMut<'msg> {
-        RouteSummaryMut {
-            inner: unsafe {
-                ::protobuf::__internal::runtime::MutatorMessageRef::from_raw_parts(
-                    std::ptr::NonNull::new(msg)
-                        .expect("expected present message value in map"),
-                    arena,
-                )
-            },
-        }
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageMutInner::<
+                'msg,
+                RouteSummary,
+            >::wrap_raw(msg, arena)
+        };
+        RouteSummaryMut::new(::protobuf::__internal::Private, inner)
     }
 }
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 pub struct RouteSummaryMut<'msg> {
-    inner: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+    inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, RouteSummary>,
 }
 impl<'msg> ::protobuf::__internal::SealedInternal for RouteSummaryMut<'msg> {}
 impl<'msg> ::protobuf::MessageMut<'msg> for RouteSummaryMut<'msg> {
@@ -4163,77 +2874,16 @@ impl ::protobuf::Serialize for RouteSummaryMut<'_> {
         ::protobuf::AsView::as_view(self).serialize()
     }
 }
-impl ::protobuf::Clear for RouteSummaryMut<'_> {
-    fn clear(&mut self) {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_Clear(
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-            )
-        }
-    }
-}
-impl ::protobuf::ClearAndParse for RouteSummaryMut<'_> {
-    fn clear_and_parse(
-        &mut self,
-        data: &[u8],
-    ) -> ::std::result::Result<(), ::protobuf::ParseError> {
-        ::protobuf::Clear::clear(self);
-        let status = unsafe {
-            ::protobuf::__internal::runtime::wire::decode(
-                data,
-                self.raw_msg(),
-                <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                self.arena(),
-            )
-        };
-        match status {
-            Ok(_) => Ok(()),
-            Err(_) => Err(::protobuf::ParseError),
-        }
-    }
-}
-impl ::protobuf::TakeFrom for RouteSummaryMut<'_> {
-    fn take_from(&mut self, mut src: impl ::protobuf::AsMut<MutProxied = RouteSummary>) {
-        let mut src = src.as_mut();
-        ::protobuf::CopyFrom::copy_from(self, ::protobuf::AsView::as_view(&src));
-        ::protobuf::Clear::clear(&mut src);
-    }
-}
-impl ::protobuf::CopyFrom for RouteSummaryMut<'_> {
-    fn copy_from(&mut self, src: impl ::protobuf::AsView<Proxied = RouteSummary>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_DeepCopy(self.raw_msg(), src
-                .as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                self.arena().raw())
-            );
-        }
-    }
-}
-impl ::protobuf::MergeFrom for RouteSummaryMut<'_> {
-    fn merge_from(&mut self, src: impl ::protobuf::AsView<Proxied = RouteSummary>) {
-        unsafe {
-            assert!(
-                ::protobuf::__internal::runtime::upb_Message_MergeFrom(self.raw_msg(),
-                src.as_view().raw_msg(), < Self as
-                ::protobuf::__internal::runtime::AssociatedMiniTable >::mini_table(),
-                ::std::ptr::null(), self.arena().raw())
-            );
-        }
-    }
-}
 #[allow(dead_code)]
 impl<'msg> RouteSummaryMut<'msg> {
     #[doc(hidden)]
-    pub fn from_parent(
+    pub fn from_parent<ParentT: ::protobuf::Message>(
         _private: ::protobuf::__internal::Private,
-        parent: ::protobuf::__internal::runtime::MutatorMessageRef<'msg>,
+        parent: ::protobuf::__internal::runtime::MessageMutInner<'msg, ParentT>,
         msg: ::protobuf::__internal::runtime::RawMessage,
     ) -> Self {
         Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::from_parent(
+            inner: ::protobuf::__internal::runtime::MessageMutInner::from_parent(
                 parent,
                 msg,
             ),
@@ -4242,147 +2892,57 @@ impl<'msg> RouteSummaryMut<'msg> {
     #[doc(hidden)]
     pub fn new(
         _private: ::protobuf::__internal::Private,
-        msg: &'msg mut ::protobuf::__internal::runtime::MessageInner,
+        inner: ::protobuf::__internal::runtime::MessageMutInner<'msg, RouteSummary>,
     ) -> Self {
-        Self {
-            inner: ::protobuf::__internal::runtime::MutatorMessageRef::new(msg),
-        }
+        Self { inner }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg()
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef<'msg> {
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'msg, RouteSummary> {
         self.inner
     }
     pub fn to_owned(&self) -> RouteSummary {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
         self.inner.arena()
     }
     pub fn point_count(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_point_count(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
     }
     pub fn feature_count(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_feature_count(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
     }
     pub fn distance(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                2,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(2, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_distance(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                2,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(2, val.into()) }
     }
     pub fn elapsed_time(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                3,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(3, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_elapsed_time(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                3,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(3, val.into()) }
     }
 }
 unsafe impl Sync for RouteSummaryMut<'_> {}
@@ -4392,7 +2952,9 @@ impl<'msg> ::protobuf::AsView for RouteSummaryMut<'msg> {
     type Proxied = RouteSummary;
     fn as_view(&self) -> ::protobuf::View<'_, RouteSummary> {
         RouteSummaryView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -4403,7 +2965,9 @@ impl<'msg> ::protobuf::IntoView<'msg> for RouteSummaryMut<'msg> {
         'msg: 'shorter,
     {
         RouteSummaryView {
-            msg: self.raw_msg(),
+            inner: ::protobuf::__internal::runtime::MessageViewInner::view_of_mut(
+                self.inner.clone(),
+            ),
             _phantom: ::std::marker::PhantomData,
         }
     }
@@ -4427,163 +2991,77 @@ impl<'msg> ::protobuf::IntoMut<'msg> for RouteSummaryMut<'msg> {
 #[allow(dead_code)]
 impl RouteSummary {
     pub fn new() -> Self {
-        let arena = ::protobuf::__internal::runtime::Arena::new();
-        let raw_msg = unsafe {
-            ::protobuf::__internal::runtime::upb_Message_New(
-                    <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                    arena.raw(),
-                )
-                .unwrap()
-        };
         Self {
-            inner: ::protobuf::__internal::runtime::MessageInner {
-                msg: raw_msg,
-                arena,
-            },
+            inner: ::protobuf::__internal::runtime::OwnedMessageInner::<Self>::new(),
         }
     }
     fn raw_msg(&self) -> ::protobuf::__internal::runtime::RawMessage {
-        self.inner.msg
+        self.inner.raw()
     }
     #[doc(hidden)]
-    pub fn as_mutator_message_ref(
+    pub fn as_message_mut_inner(
         &mut self,
         _private: ::protobuf::__internal::Private,
-    ) -> ::protobuf::__internal::runtime::MutatorMessageRef {
-        ::protobuf::__internal::runtime::MutatorMessageRef::new(&mut self.inner)
+    ) -> ::protobuf::__internal::runtime::MessageMutInner<'_, RouteSummary> {
+        ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
     }
-    fn arena(&self) -> &::protobuf::__internal::runtime::Arena {
-        &self.inner.arena
+    fn arena(&mut self) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
     pub fn parse(data: &[u8]) -> ::std::result::Result<Self, ::protobuf::ParseError> {
         let mut msg = Self::new();
         ::protobuf::ClearAndParse::clear_and_parse(&mut msg, data).map(|_| msg)
     }
+    pub fn parse_dont_enforce_required(
+        data: &[u8],
+    ) -> ::std::result::Result<Self, ::protobuf::ParseError> {
+        let mut msg = Self::new();
+        ::protobuf::ClearAndParse::clear_and_parse_dont_enforce_required(&mut msg, data)
+            .map(|_| msg)
+    }
     pub fn as_view(&self) -> RouteSummaryView {
-        RouteSummaryView::new(::protobuf::__internal::Private, self.inner.msg)
+        RouteSummaryView::new(
+            ::protobuf::__internal::Private,
+            ::protobuf::__internal::runtime::MessageViewInner::view_of_owned(&self.inner),
+        )
     }
     pub fn as_mut(&mut self) -> RouteSummaryMut {
-        RouteSummaryMut::new(::protobuf::__internal::Private, &mut self.inner)
+        let inner = ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(
+            &mut self.inner,
+        );
+        RouteSummaryMut::new(::protobuf::__internal::Private, inner)
     }
     pub fn point_count(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_point_count(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                0,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
     }
     pub fn feature_count(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_feature_count(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                1,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
     }
     pub fn distance(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                2,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(2, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_distance(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                2,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(2, val.into()) }
     }
     pub fn elapsed_time(&self) -> i32 {
         unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                3,
-            );
-            ::protobuf::__internal::runtime::upb_Message_GetInt32(
-                    self.raw_msg(),
-                    f,
-                    (0i32).into(),
-                )
-                .try_into()
-                .unwrap()
+            self.inner.ptr().get_i32_at_index(3, (0i32).into()).try_into().unwrap()
         }
     }
     pub fn set_elapsed_time(&mut self, val: i32) {
-        unsafe {
-            let mt = <Self as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table();
-            let f = ::protobuf::__internal::runtime::upb_MiniTable_GetFieldByIndex(
-                mt,
-                3,
-            );
-            ::protobuf::__internal::runtime::upb_Message_SetBaseFieldInt32(
-                self.raw_msg(),
-                f,
-                val.into(),
-            );
-        }
+        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(3, val.into()) }
     }
 }
 impl ::std::ops::Drop for RouteSummary {
@@ -4607,80 +3085,132 @@ impl ::protobuf::AsMut for RouteSummary {
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RouteSummary {
-    #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__RouteSummary_msg_init) }
+        static ONCE_LOCK: ::std::sync::OnceLock<
+            ::protobuf::__internal::runtime::MiniTablePtr,
+        > = ::std::sync::OnceLock::new();
+        ONCE_LOCK
+            .get_or_init(|| unsafe {
+                super::routeguide__RouteSummary_msg_init.0 = ::protobuf::__internal::runtime::upb_MiniTable_Build(
+                    "$(P(P(P(P".as_ptr(),
+                    9,
+                    ::protobuf::__internal::runtime::THREAD_LOCAL_ARENA
+                        .with(|a| a.raw()),
+                    ::std::ptr::null_mut(),
+                );
+                let submessages = [];
+                let subenums = [];
+                assert!(
+                    ::protobuf::__internal::runtime::upb_MiniTable_Link(super::routeguide__RouteSummary_msg_init
+                    .0, submessages.as_ptr() as * const * const
+                    ::protobuf::__internal::runtime::upb_MiniTable, submessages.len(),
+                    subenums.as_ptr(), subenums.len())
+                );
+                ::protobuf::__internal::runtime::MiniTablePtr(
+                    super::routeguide__RouteSummary_msg_init.0,
+                )
+            })
+            .0
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for RouteSummary {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable
 for RouteSummaryView<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__RouteSummary_msg_init) }
+        <RouteSummary as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
 unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable
 for RouteSummaryMut<'_> {
     #[inline(always)]
     fn mini_table() -> *const ::protobuf::__internal::runtime::upb_MiniTable {
-        #[allow(unused_unsafe)]
-        unsafe { ::std::ptr::addr_of!(routeguide__RouteSummary_msg_init) }
+        <RouteSummary as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table()
     }
 }
-extern "C" {
-    /// Opaque static extern for this message's MiniTable, generated
-    /// by the upb C MiniTable codegen. The only valid way to
-    /// reference this static is with `std::ptr::addr_of!(..)`.
-    static routeguide__RouteSummary_msg_init: ::protobuf::__internal::runtime::upb_MiniTable;
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut for RouteSummary {
+    type Msg = RouteSummary;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteSummary> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RouteSummary {
+    type Msg = RouteSummary;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteSummary> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtrMut
+for RouteSummaryMut<'_> {
+    type Msg = RouteSummary;
+    fn get_ptr_mut(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteSummary> {
+        self.inner.ptr_mut()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RouteSummaryMut<'_> {
+    type Msg = RouteSummary;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteSummary> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetMessagePtr for RouteSummaryView<'_> {
+    type Msg = RouteSummary;
+    fn get_ptr(
+        &self,
+        _private: ::protobuf::__internal::Private,
+    ) -> ::protobuf::__internal::runtime::MessagePtr<RouteSummary> {
+        self.inner.ptr()
+    }
+}
+unsafe impl ::protobuf::__internal::runtime::UpbGetArena for RouteSummaryMut<'_> {
+    fn get_arena(
+        &mut self,
+        _private: ::protobuf::__internal::Private,
+    ) -> &::protobuf::__internal::runtime::Arena {
+        self.inner.arena()
+    }
 }
 impl ::protobuf::OwnedMessageInterop for RouteSummary {}
 impl<'a> ::protobuf::MessageMutInterop<'a> for RouteSummaryMut<'a> {}
 impl<'a> ::protobuf::MessageViewInterop<'a> for RouteSummaryView<'a> {
     unsafe fn __unstable_wrap_raw_message(msg: &'a *const ::std::ffi::c_void) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(*msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     unsafe fn __unstable_wrap_raw_message_unchecked_lifetime(
         msg: *const ::std::ffi::c_void,
     ) -> Self {
-        Self::new(
-            ::protobuf::__internal::Private,
-            ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _).unwrap(),
-        )
+        let raw = ::protobuf::__internal::runtime::RawMessage::new(msg as *mut _)
+            .unwrap();
+        let inner = unsafe {
+            ::protobuf::__internal::runtime::MessageViewInner::wrap_raw(raw)
+        };
+        Self::new(::protobuf::__internal::Private, inner)
     }
     fn __unstable_as_raw_message(&self) -> *const ::std::ffi::c_void {
-        self.msg.as_ptr() as *const _
-    }
-}
-impl ::protobuf::__internal::MatcherEq for RouteSummary {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for RouteSummaryMut<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        ::protobuf::__internal::MatcherEq::matches(
-            &::protobuf::AsView::as_view(self),
-            &::protobuf::AsView::as_view(o),
-        )
-    }
-}
-impl<'a> ::protobuf::__internal::MatcherEq for RouteSummaryView<'a> {
-    fn matches(&self, o: &Self) -> bool {
-        unsafe {
-            ::protobuf::__internal::runtime::upb_Message_IsEqual(
-                self.msg,
-                o.msg,
-                <RouteSummary as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                0,
-            )
-        }
+        self.inner.raw().as_ptr() as *const _
     }
 }

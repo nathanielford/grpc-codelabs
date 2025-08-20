@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::pin::Pin;
-use std::sync::Arc;
 use std::time::Instant;
 
 use tokio::sync::mpsc;
@@ -28,21 +27,9 @@ pub use grpc_pb::{
     Point, Feature, Rectangle, RouteNote, RouteSummary
 };
 
-#[derive(Debug, Deserialize)]
-struct JsonFeature {
-    location: JsonPoint,
-    name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct JsonPoint {
-    latitude: i32,
-    longitude: i32,
-}
-
 #[derive(Debug)]
 pub struct RouteGuideService {
-    features: Arc<Vec<Feature>>,
+    features: Vec<Feature>,
 }
 
 type ListFeaturesStream = Pin<Box<dyn Stream<Item = Result<Feature, Status>> + Send + 'static>>;
@@ -57,7 +44,7 @@ impl RouteGuide for RouteGuideService {
     ) -> Result<Response<ListFeaturesStream>, Status> {
         println!("ListFeatures = {:?}", request);
 
-        let (tx, rx) = mpsc::channel(4);
+        let (tx, rx) = mpsc::channel(2);
         let features = self.features.clone();
 
         tokio::spawn(async move {
@@ -139,17 +126,12 @@ impl RouteGuide for RouteGuideService {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:10000".parse().unwrap();
-
     println!("RouteGuideServer listening on: {addr}");
-
     let route_guide = RouteGuideService {
         features: load().into(),
     };
-
     let svc = RouteGuideServer::new(route_guide);
-
     Server::builder().add_service(svc).serve(addr).await?;
-
     Ok(())
 }
 
@@ -193,6 +175,18 @@ fn calc_distance(p1: &Point, p2: &Point) -> i32 {
     let c = 2f64 * a.sqrt().atan2((1f64 - a).sqrt());
 
     (R * c) as i32
+}
+
+#[derive(Debug, Deserialize)]
+struct JsonFeature {
+    location: JsonPoint,
+    name: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct JsonPoint {
+    latitude: i32,
+    longitude: i32,
 }
 
 #[allow(dead_code)]

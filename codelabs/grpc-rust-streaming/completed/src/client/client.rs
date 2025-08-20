@@ -19,7 +19,6 @@ mod grpc_pb {
         "/generated/routeguide_grpc.pb.rs"
     ));
 }
-
 use grpc_pb::route_guide_client::RouteGuideClient;
 use grpc_pb::{Point, Rectangle, RouteNote};
 
@@ -40,7 +39,7 @@ async fn print_features(client: &mut RouteGuideClient<Channel>) -> Result<(), Bo
         .list_features(Request::new(rectangle))
         .await?
         .into_inner();
-
+    
     while let Some(feature) = stream.message().await? {
         println!("FEATURE: Name = \"{}\", Lat = {}, Lon = {}",
             feature.name(),
@@ -76,7 +75,7 @@ async fn run_route_chat(client: &mut RouteGuideClient<Channel>) -> Result<(), Bo
     let start = time::Instant::now();
     let outbound = async_stream::stream! {
         let mut interval = time::interval(Duration::from_secs(1));
-        loop {
+        for _ in 0..10 {
             let time = interval.tick().await;
             let elapsed = time.duration_since(start);
             let note = proto!(RouteNote {

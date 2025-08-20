@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::pin::Pin;
-use std::sync::Arc;
 use std::time::Instant;
 
 use tokio::sync::mpsc;
@@ -16,22 +15,11 @@ use protobuf::proto;
 // Codelab Hint: Bring the generated code into scope.
 // /////////////////////////////////////////////////////////////////////////
 
-#[derive(Debug, Deserialize)]
-struct JsonFeature {
-    location: Location,
-    name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct Location {
-    latitude: i32,
-    longitude: i32,
-}
-
-//delete Arc and delete the import of Arc
 #[derive(Debug)]
 pub struct RouteGuideService {
-    features: Arc<Vec<Feature>>,
+    ///////////////////////////////////////////////////////////////////////////
+    // Codelab Hint: Define the RouteGuideService struct.
+    ///////////////////////////////////////////////////////////////////////////
 }
 
 type ListFeaturesStream = Pin<Box<dyn Stream<Item = Result<Feature, Status>> + Send + 'static>>;
@@ -141,6 +129,18 @@ fn calc_distance(p1: &Point, p2: &Point) -> i32 {
     let c = 2f64 * a.sqrt().atan2((1f64 - a).sqrt());
 
     (R * c) as i32
+}
+
+#[derive(Debug, Deserialize)]
+struct JsonFeature {
+    location: Location,
+    name: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct JsonPoint {
+    latitude: i32,
+    longitude: i32,
 }
 
 #[allow(dead_code)]
