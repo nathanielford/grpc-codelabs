@@ -23,7 +23,7 @@ pub use grpc_pb::{
 
 #[derive(Debug)]
 pub struct RouteGuideService {
-    features: Arc<Vec<Feature>>,
+    features: Vec<Feature>,
 }
 
 #[tonic::async_trait]
@@ -47,7 +47,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:10000".parse().unwrap();
     println!("RouteGuideServer listening on: {addr}");
     let route_guide = RouteGuideService {
-        features: Arc::new(load()),
+        features: load(),
     };
     let svc = RouteGuideServer::new(route_guide);
     Server::builder().add_service(svc).serve(addr).await?;
@@ -56,12 +56,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[derive(Debug, Deserialize)]
 struct JsonFeature {
-    location: Location,
+    location: JsonPoint,
     name: String,
 }
 
 #[derive(Debug, Deserialize)]
-struct Location {
+struct JsonPoint {
     latitude: i32,
     longitude: i32,
 }

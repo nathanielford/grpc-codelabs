@@ -9,18 +9,6 @@ use protobuf::proto;
 // Codelab Hint: Bring the generated code into scope.
 // /////////////////////////////////////////////////////////////////////////
 
-#[derive(Debug, Deserialize)]
-struct JsonFeature {
-    location: Location,
-    name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct Location {
-    latitude: i32,
-    longitude: i32,
-}
-
 #[derive(Debug)]
 pub struct RouteGuideService {
     features: Arc<Vec<Feature>>,
@@ -56,12 +44,12 @@ async fn main() {
 
 #[derive(Debug, Deserialize)]
 struct JsonFeature {
-    location: Location,
+    location: JsonPoint,
     name: String,
 }
 
 #[derive(Debug, Deserialize)]
-struct Location {
+struct JsonPoint {
     latitude: i32,
     longitude: i32,
 }
