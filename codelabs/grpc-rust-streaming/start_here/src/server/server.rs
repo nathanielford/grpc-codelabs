@@ -133,7 +133,7 @@ fn calc_distance(p1: &Point, p2: &Point) -> i32 {
 
 #[derive(Debug, Deserialize)]
 struct JsonFeature {
-    location: Location,
+    location: JsonPoint,
     name: String,
 }
 
