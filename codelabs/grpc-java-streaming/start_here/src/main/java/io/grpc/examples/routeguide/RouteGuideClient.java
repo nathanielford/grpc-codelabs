@@ -38,35 +38,8 @@ public class RouteGuideClient {
      blockingStub =
      asyncStub =
      ****************************************************************/
-  }
-
-  /**
-   * Blocking unary call example.  Calls getFeature and prints the response.
-   */
-  public void getFeature(int lat, int lon) {
-    info("*** GetFeature: lat={0} lon={1}", lat, lon);
-
-    Point request = Point.newBuilder().setLatitude(lat).setLongitude(lon).build();
-
-    Feature feature;
-    try {
-      /****************************************************************
-       * Codelab Hint: Use the blocking stub to make an RPC call to getFeature
-       ****************************************************************/
-    } catch (StatusRuntimeException e) {
-      warning("RPC failed: {0}", e.getStatus());
-      return;
-    }
-    if (RouteGuideUtil.exists(feature)) {
-      info("Found feature called \"{0}\" at {1}, {2}",
-          feature.getName(),
-          RouteGuideUtil.getLatitude(feature.getLocation()),
-          RouteGuideUtil.getLongitude(feature.getLocation()));
-    } else {
-      info("Found no feature at {0}, {1}",
-          RouteGuideUtil.getLatitude(feature.getLocation()),
-          RouteGuideUtil.getLongitude(feature.getLocation()));
-    }
+    blockingStub = null;
+    asyncStub = null;
   }
 
   /**
@@ -84,7 +57,7 @@ public class RouteGuideClient {
      Rectangle request =
      ****************************************************************/
 
-    Iterator<Feature> features;
+    Iterator<Feature> features = null;
     try {
       /****************************************************************
        * Codelab Hint: Retrieve the features using the blocking stub

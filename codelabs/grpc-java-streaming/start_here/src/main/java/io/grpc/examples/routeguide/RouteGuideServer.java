@@ -54,6 +54,7 @@ public class RouteGuideServer {
      *
     server =
      ****************************************************************/
+    server = null;
   }
 
   /** Start serving requests. */
@@ -118,22 +119,6 @@ public class RouteGuideServer {
 
     RouteGuideService(Collection<Feature> features) {
       this.features = features;
-    }
-
-    /**
-     * Gets the {@link Feature} at the requested {@link Point}. If no feature at that location
-     * exists, an unnamed feature is returned at the provided location.
-     *
-     * @param request the specified location for the feature.
-     * @param responseObserver the observer that will receive the feature at the requested point.
-     */
-    @Override
-    public void getFeature(Point request, StreamObserver<Feature> responseObserver) {
-  /****************************************************************
-   * Codelab Hint: use checkFeature so send an appropriate response
-   * and mark the RPC complete
-   ****************************************************************/
-
     }
 
     /**
