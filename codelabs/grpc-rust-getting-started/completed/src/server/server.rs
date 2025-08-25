@@ -6,14 +6,7 @@ use std::fs::File;
 use protobuf::proto;
 
 mod grpc_pb {
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/generated.rs"
-    ));
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/routeguide_grpc.pb.rs"
-    ));
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 
 pub use grpc_pb::{

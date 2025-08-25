@@ -9,15 +9,7 @@ use tonic::Request;
 use protobuf::proto;
 
 mod grpc_pb {
-    // Include message code.
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/generated.rs"
-    ));
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/routeguide_grpc.pb.rs"
-    ));
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 use grpc_pb::route_guide_client::RouteGuideClient;
 use grpc_pb::{Point, Rectangle, RouteNote};
@@ -39,7 +31,7 @@ async fn print_features(client: &mut RouteGuideClient<Channel>) -> Result<(), Bo
         .list_features(Request::new(rectangle))
         .await?
         .into_inner();
-    
+
     while let Some(feature) = stream.message().await? {
         println!("FEATURE: Name = \"{}\", Lat = {}, Lon = {}",
             feature.name(),

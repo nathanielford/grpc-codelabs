@@ -54,33 +54,6 @@ public class RouteGuideClient {
   }
 
   /**
-   * Blocking unary call example.  Calls getFeature and prints the response.
-   */
-  public void getFeature(int lat, int lon) {
-    info("*** GetFeature: lat={0} lon={1}", lat, lon);
-
-    Point request = Point.newBuilder().setLatitude(lat).setLongitude(lon).build();
-
-    Feature feature;
-    try {
-      feature = blockingStub.getFeature(request);
-    } catch (StatusRuntimeException e) {
-      warning("RPC failed: {0}", e.getStatus());
-      return;
-    }
-    if (RouteGuideUtil.exists(feature)) {
-      info("Found feature called \"{0}\" at {1}, {2}",
-          feature.getName(),
-          RouteGuideUtil.getLatitude(feature.getLocation()),
-          RouteGuideUtil.getLongitude(feature.getLocation()));
-    } else {
-      info("Found no feature at {0}, {1}",
-          RouteGuideUtil.getLatitude(feature.getLocation()),
-          RouteGuideUtil.getLongitude(feature.getLocation()));
-    }
-  }
-
-  /**
    * Blocking server-streaming example. Calls listFeatures with a rectangle of interest. Prints each
    * response feature as it arrives.
    */
@@ -239,11 +212,6 @@ public class RouteGuideClient {
         .build();
     try {
       RouteGuideClient client = new RouteGuideClient(channel);
-      // Looking for a valid feature
-      client.getFeature(409146138, -746188906);
-
-      // Feature missing.
-      client.getFeature(0, 0);
 
       // Looking for features between 40, -75 and 42, -73.
       client.listFeatures(400000000, -750000000, 420000000, -730000000);
