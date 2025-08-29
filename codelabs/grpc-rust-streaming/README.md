@@ -34,6 +34,7 @@ Now, run
 ```shell
 $ cargo build
 ```
+
 ## Bringing Generated Code into Scope
 
 The generated code is placed inside our target directory, in a location defined by the `output_dir`.
@@ -42,14 +43,12 @@ We can use gRPC's `include_generated_proto` macro to bring the generated code in
 
 ```rust
 pub mod routeguide {
-    tonic::include_generated_proto!("generated", "routeguide");
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 ```
 
 **Note**: The token passed to the `include_generated_proto` macro (in our case "routeguide") is the name of
 the package declared in our `.proto` file, not a filename, e.g "routeguide.rs".
-
-With this in place, we can stub out our service implementation:
 
 
 
