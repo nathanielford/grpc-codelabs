@@ -43,7 +43,7 @@ We can use gRPC's `include_generated_proto` macro to bring the generated code in
 
 ```rust
 pub mod routeguide {
-    tonic::include_generated_proto!("generated", "routeguide");
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 ```
 
