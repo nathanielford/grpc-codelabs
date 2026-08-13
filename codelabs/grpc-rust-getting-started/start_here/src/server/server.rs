@@ -9,21 +9,11 @@ use protobuf::proto;
 // Codelab Hint: Bring the generated code into scope.
 // /////////////////////////////////////////////////////////////////////////
 
-#[derive(Debug, Deserialize)]
-struct JsonFeature {
-    location: Location,
-    name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct Location {
-    latitude: i32,
-    longitude: i32,
-}
-
 #[derive(Debug)]
 pub struct RouteGuideService {
-    features: Arc<Vec<Feature>>,
+    ///////////////////////////////////////////////////////////////////////////
+    // Codelab Hint: Define the RouteGuideService struct.
+    ///////////////////////////////////////////////////////////////////////////
 }
 
 #[tonic::async_trait]
@@ -43,7 +33,7 @@ impl RouteGuide for RouteGuideService {
 
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ///////////////////////////////////////////////////////////////////////////
 	// Codelab Hint: Logic for starting up a gRPC Server will be added here.
 	//
@@ -56,12 +46,12 @@ async fn main() {
 
 #[derive(Debug, Deserialize)]
 struct JsonFeature {
-    location: Location,
+    location: JsonPoint,
     name: String,
 }
 
 #[derive(Debug, Deserialize)]
-struct Location {
+struct JsonPoint {
     latitude: i32,
     longitude: i32,
 }

@@ -34,9 +34,6 @@ public class RouteGuideServer {
      this(<create ServerBuilder>,
      port, RouteGuideUtil.parseFeatures(featureFile));
      ****************************************************************/
-
-    this(Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create()),
-        port, RouteGuideUtil.parseFeatures(featureFile));
   }
 
   /** Create a RouteGuide server using serverBuilder as a base and features as data. */

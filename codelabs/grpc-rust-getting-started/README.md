@@ -2,31 +2,7 @@
 
 This is a tutorial for generating code from Proto files using gRPC-Rust. This tutorial will utilize the RouteGuide example.
 
-### Prerequisites
-
-* [**Tonic**](https://github.com/hyperium/tonic.git), the open source repository that gRPC-Rust is build off on
-```sh
-$ git clone https://github.com/hyperium/tonic.git
-```
-* [**Rust**](https://www.rust-lang.org/).
-    * Follow installation instructions [here](https://www.rust-lang.org/tools/install).
-* [**Bazel 8.3.1**](https://bazel.build/).
-    * Follow installation instructions [here](https://github.com/bazelbuild/bazel/releases).
-* [**Protocol buffer**](https://developers.google.com/protocol-buffers) **compiler**, `protoc`, [version 3](https://protobuf.dev/programming-guides/proto3).
-    * For installation instructions, see [Protocol Buffer Compiler Installation](https://grpc.io/docs/protoc-installation/).
-    * NOTE: Must need a version of Protoc 3.31.1 or higher.
-* **Rust plugins** for the protocol compiler:
-```sh
-$ cd tonic/protoc-gen-rust-grpc
-$ bazel build //src:protoc-gen-rust-grpc
-$ PLUGIN_PATH="$(pwd)/bazel-bin/src/protoc-gen-rust-grpc"
-```
-
-* Update your PATH so that the protoc compiler can find the plugins:
-
-```sh
-export PATH="$(pwd)/bazel-bin/src/:$PATH"
-```
+First, follow the instructions here: https://github.com/hyperium/tonic/blob/master/protoc-gen-rust-grpc/README.md
 
 ## Generating client and server code
 
@@ -59,31 +35,23 @@ Now, run
 $ cargo build
 ```
 
-That's it. The generated code contains:
-
-- Struct definitions for message types `Point` and `Feature`.
-- A service trait we'll need to implement: `route_guide_server::RouteGuide`.
-- A client type we'll use to call the server: `route_guide_client::RouteGuideClient<T>`.
-
-If your are curious as to where the generated files are, keep reading. The mystery will be revealed
-soon! We can now move on to the fun part.
-
 ## Bringing Generated Code into Scope
 
-The generated code is placed inside our target directory, in a location defined by the `OUT_DIR`
-environment variable that is set by cargo. For our example, this means you can find the generated
-code in a path similar to `target/debug/build/routeguide/out/routeguide.rs`.
+The generated code is placed inside our target directory, in a location defined by the `output_dir`.
 
-We can use gRPC's `include_proto` macro to bring the generated code into scope:
+We can use gRPC's `include_generated_proto` macro to bring the generated code into scope:
 
 ```rust
 pub mod routeguide {
-    tonic::include_proto!("routeguide");
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 ```
 
-**Note**: The token passed to the `include_proto` macro (in our case "routeguide") is the name of
+**Note**: The token passed to the `include_generated_proto` macro (in our case "routeguide") is the name of
 the package declared in our `.proto` file, not a filename, e.g "routeguide.rs".
 
 With this in place, we can stub out our service implementation:
+
+
+
 

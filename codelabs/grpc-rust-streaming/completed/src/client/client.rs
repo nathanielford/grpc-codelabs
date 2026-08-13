@@ -9,17 +9,8 @@ use tonic::Request;
 use protobuf::proto;
 
 mod grpc_pb {
-    // Include message code.
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/generated.rs"
-    ));
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/routeguide_grpc.pb.rs"
-    ));
+    grpc::include_generated_proto!("generated", "routeguide");
 }
-
 use grpc_pb::route_guide_client::RouteGuideClient;
 use grpc_pb::{Point, Rectangle, RouteNote};
 
@@ -76,7 +67,7 @@ async fn run_route_chat(client: &mut RouteGuideClient<Channel>) -> Result<(), Bo
     let start = time::Instant::now();
     let outbound = async_stream::stream! {
         let mut interval = time::interval(Duration::from_secs(1));
-        loop {
+        for _ in 0..10 {
             let time = interval.tick().await;
             let elapsed = time.duration_since(start);
             let note = proto!(RouteNote {

@@ -20,37 +20,6 @@ option objc_class_prefix = "RTG";
 
 package routeguide;
 
-// Interface exported by the server.
-service RouteGuide {
-  // A simple RPC.
-  //
-  // Obtains the feature at a given position.
-  //
-  // A feature with an empty name is returned if there's no feature at the given
-  // position.
-  rpc GetFeature(Point) returns (Feature) {}
-
-  // A server-to-client streaming RPC.
-  //
-  // Obtains the Features available within the given Rectangle.  Results are
-  // streamed rather than returned at once (e.g. in a response message with a
-  // repeated field), as the rectangle may cover a large area and contain a
-  // huge number of features.
-  rpc ListFeatures(Rectangle) returns (stream Feature) {}
-
-  // A client-to-server streaming RPC.
-  //
-  // Accepts a stream of Points on a route being traversed, returning a
-  // RouteSummary when traversal is completed.
-  rpc RecordRoute(stream Point) returns (RouteSummary) {}
-
-  // A Bidirectional streaming RPC.
-  //
-  // Accepts a stream of RouteNotes sent while a route is being traversed,
-  // while receiving other RouteNotes (e.g. from other users).
-  rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
-}
-
 // Points are represented as latitude-longitude pairs in the E7 representation
 // (degrees multiplied by 10**7 and rounded to the nearest integer).
 // Latitudes should be in the range +/- 90 degrees and longitude should be in
@@ -58,16 +27,6 @@ service RouteGuide {
 message Point {
   int32 latitude = 1;
   int32 longitude = 2;
-}
-
-// A latitude-longitude rectangle, represented as two diagonally opposite
-// points "lo" and "hi".
-message Rectangle {
-  // One corner of the rectangle.
-  Point lo = 1;
-
-  // The other corner of the rectangle.
-  Point hi = 2;
 }
 
 // A feature names something at a given point.
@@ -79,6 +38,16 @@ message Feature {
 
   // The point where the feature is detected.
   Point location = 2;
+}
+
+// A latitude-longitude rectangle, represented as two diagonally opposite
+// points "lo" and "hi".
+message Rectangle {
+  // One corner of the rectangle.
+  Point lo = 1;
+
+  // The other corner of the rectangle.
+  Point hi = 2;
 }
 
 // Not used in the RPC.  Instead, this is here for the form serialized to disk.
@@ -114,3 +83,26 @@ message RouteSummary {
   int32 elapsed_time = 4;
 }
 
+// Interface exported by the server.
+service RouteGuide {
+
+  // A server-to-client streaming RPC.
+  //
+  // Obtains the Features available within the given Rectangle.  Results are
+  // streamed rather than returned at once (e.g. in a response message with a
+  // repeated field), as the rectangle may cover a large area and contain a
+  // huge number of features.
+  rpc ListFeatures(Rectangle) returns (stream Feature) {}
+
+  // A client-to-server streaming RPC.
+  //
+  // Accepts a stream of Points on a route being traversed, returning a
+  // RouteSummary when traversal is completed.
+  rpc RecordRoute(stream Point) returns (RouteSummary) {}
+
+  // A Bidirectional streaming RPC.
+  //
+  // Accepts a stream of RouteNotes sent while a route is being traversed,
+  // while receiving other RouteNotes (e.g. from other users).
+  rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+}

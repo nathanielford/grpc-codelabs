@@ -3,16 +3,7 @@ use tonic::transport::{Endpoint};
 use protobuf::proto;
 
 mod grpc_pb {
-    // Include message code.
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/generated.rs"
-    ));
-    // Include service code.
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/routeguide_grpc.pb.rs"
-    ));
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 
 use grpc_pb::{

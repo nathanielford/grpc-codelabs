@@ -6,14 +6,7 @@ use std::fs::File;
 use protobuf::proto;
 
 mod grpc_pb {
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/generated.rs"
-    ));
-    include!(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/generated/routeguide_grpc.pb.rs"
-    ));
+    grpc::include_generated_proto!("generated", "routeguide");
 }
 
 pub use grpc_pb::{
@@ -23,7 +16,7 @@ pub use grpc_pb::{
 
 #[derive(Debug)]
 pub struct RouteGuideService {
-    features: Arc<Vec<Feature>>,
+    features: Vec<Feature>,
 }
 
 #[tonic::async_trait]
@@ -47,7 +40,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:10000".parse().unwrap();
     println!("RouteGuideServer listening on: {addr}");
     let route_guide = RouteGuideService {
-        features: Arc::new(load()),
+        features: load(),
     };
     let svc = RouteGuideServer::new(route_guide);
     Server::builder().add_service(svc).serve(addr).await?;
@@ -56,12 +49,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[derive(Debug, Deserialize)]
 struct JsonFeature {
-    location: Location,
+    location: JsonPoint,
     name: String,
 }
 
 #[derive(Debug, Deserialize)]
-struct Location {
+struct JsonPoint {
     latitude: i32,
     longitude: i32,
 }
