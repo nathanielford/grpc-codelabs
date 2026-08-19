@@ -1,1 +1,3 @@
 /codelabs/grpc-cpp-opentelemetry/bazel-*
+**/target/
+Cargo.lock
