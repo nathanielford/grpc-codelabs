@@ -17,5 +17,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     //  -   Create a RouteGuideClient instance.
     //  -   Create a Point message and call get_feature().
     ///////////////////////////////////////////////////////////////////////////
-    Ok(())
+
+    Ok(()) // Hint: Replace with channel creation, client initialization, and get_feature call.
 }
